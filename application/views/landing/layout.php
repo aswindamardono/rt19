@@ -168,6 +168,74 @@ $active = isset($active_menu) ? $active_menu : 'keuangan';
       :root { --bottom-nav-height: 0px; }
     }
 
+    /* ===== Hero ===== */
+    .public-hero {
+      background: var(--gradient-hero);
+      padding: 3.5rem 1.5rem 5rem;
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .public-hero::before {
+      content: '';
+      position: absolute;
+      width: 360px; height: 360px;
+      background: radial-gradient(circle, rgba(255,255,255,0.1), transparent 70%);
+      top: -120px; left: -120px;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .public-hero::after {
+      content: '';
+      position: absolute;
+      width: 260px; height: 260px;
+      background: radial-gradient(circle, rgba(20,184,166,0.18), transparent 70%);
+      bottom: -80px; right: -80px;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .public-hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .public-hero h1 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.7rem;
+      font-weight: 800;
+      margin: 0 0 0.85rem;
+      line-height: 1.25;
+      color: white;
+    }
+    .public-hero p {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.65;
+      margin: 0 auto 1.5rem;
+      max-width: 580px;
+    }
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.22);
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.95);
+      margin-bottom: 1rem;
+      backdrop-filter: blur(10px);
+    }
+    @media (min-width: 640px) {
+      .public-hero { padding: 4.5rem 1.5rem 6rem; }
+      .public-hero h1 { font-size: 2.3rem; }
+      .public-hero p  { font-size: 1.02rem; }
+    }
+
     /* ===== Page Content Area ===== */
     .pub-page {
       max-width: 1080px;
@@ -616,9 +684,7 @@ $active = isset($active_menu) ? $active_menu : 'keuangan';
 <!-- ============================================================
      PAGE CONTENT (loaded from sub-view)
      ============================================================ -->
-<div class="pub-page" data-aos="fade-up" data-aos-duration="500">
-  <?php $this->load->view('landing/pages/' . $page_content); ?>
-</div>
+<?php $this->load->view('landing/pages/' . $page_content); ?>
 
 <!-- ============================================================
      FOOTER

@@ -1,4 +1,5 @@
 <!-- Inventaris Barang RT Page -->
+<div class="pub-page" data-aos="fade-up" data-aos-duration="500">
 <div class="pub-page-header">
   <h1><i class="fas fa-boxes"></i> Inventaris Barang RT</h1>
   <p>Daftar barang inventaris yang dikelola oleh pengurus RT-19</p>
@@ -117,3 +118,4 @@ function escapeHtml(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
 }
 </script>
+</div>

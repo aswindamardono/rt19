@@ -1,4 +1,5 @@
 <!-- Struktur Organisasi Page -->
+<div class="pub-page" data-aos="fade-up" data-aos-duration="500">
 <div class="pub-page-header">
   <h1><i class="fas fa-sitemap"></i> Struktur Organisasi</h1>
   <p>Susunan pengurus RT-19 Orchid Regency &mdash; klik kartu untuk melihat detail</p>
@@ -164,3 +165,4 @@ function escapeHtml(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
 }
 </script>
+</div>

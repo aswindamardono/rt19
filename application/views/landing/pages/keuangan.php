@@ -1,3 +1,19 @@
+<section class="public-hero">
+  <div class="public-hero-content" data-aos="fade-up" data-aos-duration="700">
+    <span class="hero-pill">
+      <i class="fas fa-leaf"></i> Orchid Regency Sidoarjo
+    </span>
+    <h1>Transparansi & Kemudahan<br>Untuk Warga RT-19</h1>
+    <p>
+      Sistem informasi, administrasi, dan transparansi keuangan
+      lingkungan RT-19 Orchid Regency Sidoarjo &mdash; agar setiap warga
+      bisa memantau kas, iuran, dan informasi terbaru kapan saja.
+    </p>
+  </div>
+</section>
+
+<div class="pub-page" data-aos="fade-up" data-aos-duration="500">
+
 <!-- Ringkasan Keuangan Page -->
 <div class="pub-page-header">
   <h1><i class="fas fa-chart-pie"></i> Ringkasan Keuangan</h1>
@@ -40,4 +56,6 @@
   <a href="<?= base_url('auth') ?>" class="pub-cta-btn">
     <i class="fas fa-sign-in-alt"></i> Login Sekarang
   </a>
+</div>
+
 </div>

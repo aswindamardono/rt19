@@ -1,4 +1,5 @@
 <!-- Pengumuman Page -->
+<div class="pub-page" data-aos="fade-up" data-aos-duration="500">
 <div class="pub-page-header">
   <h1><i class="fas fa-bullhorn"></i> Pengumuman Warga</h1>
   <p>Informasi terbaru dari pengurus RT-19</p>
@@ -103,3 +104,4 @@ if (typeof escapeHtml !== 'function') {
   }
 }
 </script>
+</div>
