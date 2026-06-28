@@ -624,7 +624,7 @@ $active = isset($active_menu) ? $active_menu : 'keuangan';
      FOOTER
      ============================================================ -->
 <footer class="pub-footer">
-  &copy; <?= date('Y') ?> <strong>RT-19 Orchid Regency</strong> Sidoarjo &middot; Sistem Informasi Manajemen RT Aswin
+  &copy; <?= date('Y') ?> <strong>RT-19 Orchid Regency</strong> Sidoarjo &middot; Sistem Informasi Manajemen RT Aswin anu
 </footer>
 
 <!-- ============================================================
