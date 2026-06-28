@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -sL https://github.com/bcit-ci/CodeIgniter/archive/refs/tags/3.1.13.zip -o ci3.zip)",
+      "Bash(ls -la /c/xampp/htdocs/RT/ | head -50)",
+      "Read(//c/xampp/htdocs/RT//**)",
+      "Bash(cp /c/xampp/htdocs/RT/assets/img/logo.png /c/xampp/htdocs/RT19/assets/img/logo.png && echo \"Logo copied\")",
+      "Bash(/c/xampp/php/php.exe -l /c/xampp/htdocs/RT19/application/views/landing/index.php)"
+    ],
+    "additionalDirectories": [
+      "C:\\xampp\\htdocs\\RT\\assets\\img"
+    ]
+  }
+}
