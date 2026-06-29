@@ -69,7 +69,7 @@ $active = isset($active_menu) ? $active_menu : 'keuangan';
       align-items: center;
       gap: 0.45rem;
       background: var(--gradient-primary);
-      color: white;
+      color: white !important;
       font-weight: 600;
       padding: 0.55rem 1.1rem;
       border-radius: var(--radius-sm);
@@ -83,6 +83,23 @@ $active = isset($active_menu) ? $active_menu : 'keuangan';
       text-decoration: none;
       transform: translateY(-1px);
       box-shadow: var(--shadow-glow);
+    }
+    
+    .pub-mobile-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--gradient-primary);
+      color: white;
+      font-weight: 600;
+      padding: 0.45rem 0.85rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+    .pub-mobile-cta:hover {
+      color: white;
+      text-decoration: none;
     }
 
     /* ===== Bottom Nav (always visible on mobile) ===== */
@@ -163,6 +180,7 @@ $active = isset($active_menu) ? $active_menu : 'keuangan';
 
     @media (min-width: 992px) {
       .pub-bottom-nav { display: none; }
+      .pub-mobile-cta { display: none; }
       .pub-desktop-links { display: flex; }
       .pub-topnav { padding: 0.65rem 2rem; }
       :root { --bottom-nav-height: 0px; }
@@ -650,7 +668,10 @@ $active = isset($active_menu) ? $active_menu : 'keuangan';
 <nav class="pub-topnav">
   <a href="<?= base_url() ?>" class="pub-topnav-logo">
     <img src="<?= base_url('assets/img/logo.png') ?>" alt="RT-19" onerror="this.style.display='none'">
-    <span>RT-19 Orchid Regency</span>
+    <span>RT-19</span>
+  </a>
+  <a href="<?= base_url('auth') ?>" class="pub-mobile-cta">
+    <i class="fas fa-sign-in-alt"></i> Login
   </a>
   <ul class="pub-desktop-links">
     <li>

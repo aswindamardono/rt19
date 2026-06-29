@@ -1,14 +1,15 @@
 <?php
 $role_id = $this->session->userdata('role_id');
-$seg1    = $this->uri->segment(1);
+$seg1 = $this->uri->segment(1);
 
-$is_active = function($s) use ($seg1) { return $seg1 === $s ? 'active' : ''; };
+$is_active = function ($s) use ($seg1) {
+  return $seg1 === $s ? 'active' : ''; };
 ?>
-  </div><!-- /aos-wrapper -->
+</div><!-- /aos-wrapper -->
 
-  <footer class="rt-footer">
-    &copy; <?= date('Y') ?> RT-19 Orchid Regency Sidoarjo &middot; v1.0.0
-  </footer>
+<footer class="rt-footer">
+  &copy; <?= date('Y') ?> RT-19 Orchid Regency Sidoarjo &middot; v1.0.0
+</footer>
 </main><!-- /.rt-main -->
 
 <!-- ============================================================
@@ -21,28 +22,28 @@ $mobile_menus = [];
 // Dashboard always first
 $mobile_menus[] = ['url' => 'dashboard', 'icon' => 'fa-th-large', 'label' => 'Home', 'seg' => 'dashboard'];
 
-if (in_array($role_id, [1, 4])) {
-    $mobile_menus[] = ['url' => 'warga', 'icon' => 'fa-users', 'label' => 'Warga', 'seg' => 'warga'];
-    $mobile_menus[] = ['url' => 'inventaris', 'icon' => 'fa-boxes', 'label' => 'Inventaris', 'seg' => 'inventaris'];
+if (in_array($role_id, [1, 4, 6])) {
+  $mobile_menus[] = ['url' => 'warga', 'icon' => 'fa-users', 'label' => 'Warga', 'seg' => 'warga'];
+  $mobile_menus[] = ['url' => 'inventaris', 'icon' => 'fa-boxes', 'label' => 'Inventaris', 'seg' => 'inventaris'];
 }
 
-if (in_array($role_id, [1, 3])) {
-    $mobile_menus[] = ['url' => 'keuangan/pemasukan', 'icon' => 'fa-arrow-down', 'label' => 'Pemasukan', 'seg' => 'keuangan'];
-    $mobile_menus[] = ['url' => 'keuangan/pengeluaran', 'icon' => 'fa-arrow-up', 'label' => 'Pengeluaran', 'seg' => 'keuangan'];
-    $mobile_menus[] = ['url' => 'keuangan/laporan', 'icon' => 'fa-file-invoice-dollar', 'label' => 'Laporan', 'seg' => 'keuangan'];
-    $mobile_menus[] = ['url' => 'iuran', 'icon' => 'fa-hand-holding-usd', 'label' => 'Iuran', 'seg' => 'iuran'];
+if (in_array($role_id, [1, 3, 6])) {
+  $mobile_menus[] = ['url' => 'keuangan/pemasukan', 'icon' => 'fa-arrow-down', 'label' => 'Pemasukan', 'seg' => 'keuangan'];
+  $mobile_menus[] = ['url' => 'keuangan/pengeluaran', 'icon' => 'fa-arrow-up', 'label' => 'Pengeluaran', 'seg' => 'keuangan'];
+  $mobile_menus[] = ['url' => 'keuangan/laporan', 'icon' => 'fa-file-invoice-dollar', 'label' => 'Laporan', 'seg' => 'keuangan'];
+  $mobile_menus[] = ['url' => 'iuran', 'icon' => 'fa-hand-holding-usd', 'label' => 'Iuran', 'seg' => 'iuran'];
 }
 
 $mobile_menus[] = ['url' => 'surat', 'icon' => 'fa-envelope', 'label' => 'Surat', 'seg' => 'surat'];
 $mobile_menus[] = ['url' => 'pengumuman', 'icon' => 'fa-bullhorn', 'label' => 'Pengumuman', 'seg' => 'pengumuman'];
 
-if (in_array($role_id, [1, 4])) {
-    $mobile_menus[] = ['url' => 'struktur', 'icon' => 'fa-sitemap', 'label' => 'Struktur', 'seg' => 'struktur'];
+if (in_array($role_id, [1, 4, 6])) {
+  $mobile_menus[] = ['url' => 'struktur', 'icon' => 'fa-sitemap', 'label' => 'Struktur', 'seg' => 'struktur'];
 }
 
 if (in_array($role_id, [1])) {
-    $mobile_menus[] = ['url' => 'users', 'icon' => 'fa-users-cog', 'label' => 'User', 'seg' => 'users'];
-    $mobile_menus[] = ['url' => 'pengaturan', 'icon' => 'fa-cogs', 'label' => 'Pengaturan', 'seg' => 'pengaturan'];
+  $mobile_menus[] = ['url' => 'users', 'icon' => 'fa-users-cog', 'label' => 'User', 'seg' => 'users'];
+  $mobile_menus[] = ['url' => 'pengaturan', 'icon' => 'fa-cogs', 'label' => 'Pengaturan', 'seg' => 'pengaturan'];
 }
 
 // Bottom bar: show first 2 on left, last 2 on right, rest in FAB popup
@@ -57,9 +58,9 @@ $popup_menus[] = ['url' => 'auth/logout', 'icon' => 'fa-sign-out-alt', 'label' =
 <!-- Bottom Nav (Mobile) -->
 <nav class="rt-bottom-nav">
   <?php foreach ($bar_left as $m): ?>
-  <a href="<?= base_url($m['url']) ?>" class="rt-bnav-item <?= $seg1 === $m['seg'] ? 'active' : '' ?>">
-    <i class="fas <?= $m['icon'] ?>"></i><span><?= $m['label'] ?></span>
-  </a>
+    <a href="<?= base_url($m['url']) ?>" class="rt-bnav-item <?= $seg1 === $m['seg'] ? 'active' : '' ?>">
+      <i class="fas <?= $m['icon'] ?>"></i><span><?= $m['label'] ?></span>
+    </a>
   <?php endforeach; ?>
 
   <!-- Center FAB -->
@@ -70,9 +71,9 @@ $popup_menus[] = ['url' => 'auth/logout', 'icon' => 'fa-sign-out-alt', 'label' =
   </div>
 
   <?php foreach ($bar_right as $m): ?>
-  <a href="<?= base_url($m['url']) ?>" class="rt-bnav-item <?= $seg1 === $m['seg'] ? 'active' : '' ?>">
-    <i class="fas <?= $m['icon'] ?>"></i><span><?= $m['label'] ?></span>
-  </a>
+    <a href="<?= base_url($m['url']) ?>" class="rt-bnav-item <?= $seg1 === $m['seg'] ? 'active' : '' ?>">
+      <i class="fas <?= $m['icon'] ?>"></i><span><?= $m['label'] ?></span>
+    </a>
   <?php endforeach; ?>
 </nav>
 
@@ -83,54 +84,54 @@ $popup_menus[] = ['url' => 'auth/logout', 'icon' => 'fa-sign-out-alt', 'label' =
 <div class="rt-fab-popup" id="fab-popup">
   <div class="rt-fab-popup-inner">
     <?php foreach ($popup_menus as $m): ?>
-    <a href="<?= base_url($m['url']) ?>" class="rt-fab-menu-item <?= $seg1 === ($m['seg'] ?? '') ? 'active' : '' ?>"
-       <?= !empty($m['logout']) ? 'onclick="return confirm(\'Yakin ingin keluar?\');"' : '' ?>>
-      <div class="rt-fab-menu-icon <?= !empty($m['logout']) ? 'logout' : '' ?>">
-        <i class="fas <?= $m['icon'] ?>"></i>
-      </div>
-      <span><?= $m['label'] ?></span>
-    </a>
+      <a href="<?= base_url($m['url']) ?>" class="rt-fab-menu-item <?= $seg1 === ($m['seg'] ?? '') ? 'active' : '' ?>"
+        <?= !empty($m['logout']) ? 'onclick="return confirm(\'Yakin ingin keluar?\');"' : '' ?>>
+        <div class="rt-fab-menu-icon <?= !empty($m['logout']) ? 'logout' : '' ?>">
+          <i class="fas <?= $m['icon'] ?>"></i>
+        </div>
+        <span><?= $m['label'] ?></span>
+      </a>
     <?php endforeach; ?>
   </div>
 </div>
 
 <script>
-(function() {
-  var fab = document.getElementById('bnav-fab-btn');
-  var popup = document.getElementById('fab-popup');
-  var overlay = document.getElementById('fab-overlay');
-  var isOpen = false;
+  (function () {
+    var fab = document.getElementById('bnav-fab-btn');
+    var popup = document.getElementById('fab-popup');
+    var overlay = document.getElementById('fab-overlay');
+    var isOpen = false;
 
-  function toggleFab() {
-    isOpen = !isOpen;
-    fab.classList.toggle('is-open', isOpen);
-    popup.classList.toggle('is-open', isOpen);
-    overlay.classList.toggle('is-open', isOpen);
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-  }
+    function toggleFab() {
+      isOpen = !isOpen;
+      fab.classList.toggle('is-open', isOpen);
+      popup.classList.toggle('is-open', isOpen);
+      overlay.classList.toggle('is-open', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    }
 
-  fab.addEventListener('click', function(e) {
-    e.stopPropagation();
-    toggleFab();
-  });
-
-  overlay.addEventListener('click', function() {
-    if (isOpen) toggleFab();
-  });
-
-  // Add ripple effect on nav items
-  document.querySelectorAll('.rt-bnav-item, .rt-fab-menu-item').forEach(function(el) {
-    el.addEventListener('click', function(e) {
-      var ripple = document.createElement('span');
-      ripple.className = 'rt-ripple';
-      var rect = el.getBoundingClientRect();
-      ripple.style.left = (e.clientX - rect.left) + 'px';
-      ripple.style.top = (e.clientY - rect.top) + 'px';
-      el.appendChild(ripple);
-      setTimeout(function() { ripple.remove(); }, 600);
+    fab.addEventListener('click', function (e) {
+      e.stopPropagation();
+      toggleFab();
     });
-  });
-})();
+
+    overlay.addEventListener('click', function () {
+      if (isOpen) toggleFab();
+    });
+
+    // Add ripple effect on nav items
+    document.querySelectorAll('.rt-bnav-item, .rt-fab-menu-item').forEach(function (el) {
+      el.addEventListener('click', function (e) {
+        var ripple = document.createElement('span');
+        ripple.className = 'rt-ripple';
+        var rect = el.getBoundingClientRect();
+        ripple.style.left = (e.clientX - rect.left) + 'px';
+        ripple.style.top = (e.clientY - rect.top) + 'px';
+        el.appendChild(ripple);
+        setTimeout(function () { ripple.remove(); }, 600);
+      });
+    });
+  })();
 </script>
 
 <!-- ============================================================
@@ -163,8 +164,8 @@ $popup_menus[] = ['url' => 'auth/logout', 'icon' => 'fa-sign-out-alt', 'label' =
 
 <!-- Flash messages -->
 <script>
-  $(function() {
-    <?php if($this->session->flashdata('success')): ?>
+  $(function () {
+    <?php if ($this->session->flashdata('success')): ?>
       Swal.fire({
         icon: 'success',
         title: 'Berhasil!',
@@ -176,7 +177,7 @@ $popup_menus[] = ['url' => 'auth/logout', 'icon' => 'fa-sign-out-alt', 'label' =
       });
     <?php endif; ?>
 
-    <?php if($this->session->flashdata('error')): ?>
+    <?php if ($this->session->flashdata('error')): ?>
       Swal.fire({
         icon: 'error',
         title: 'Gagal!',
@@ -187,9 +188,10 @@ $popup_menus[] = ['url' => 'auth/logout', 'icon' => 'fa-sign-out-alt', 'label' =
   });
 </script>
 
-<?php if(isset($custom_js) && $custom_js): ?>
+<?php if (isset($custom_js) && $custom_js): ?>
   <?= $custom_js ?>
 <?php endif; ?>
 
 </body>
+
 </html>
