@@ -1,15 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Inventaris extends CI_Controller {
+class Inventaris extends MY_Controller {
 
     public function __construct() {
         parent::__construct();
-        // Check if user is logged in
-        if (!$this->session->userdata('user_id')) {
-            redirect('auth');
-        }
-        cek_akses([1, 4, 6]);
+        $this->check_role([1, 4, 6]);
         $this->load->model('Inventaris_model');
         $this->load->library('form_validation');
     }
@@ -25,7 +21,7 @@ class Inventaris extends CI_Controller {
     }
 
     public function tambah() {
-        cek_akses([1, 4]);
+        $this->check_role([1, 4]);
         $data['title'] = 'Tambah Inventaris Barang';
 
         $this->form_validation->set_rules('nama_barang', 'Nama Barang', 'required');
@@ -69,7 +65,7 @@ class Inventaris extends CI_Controller {
     }
 
     public function edit($id) {
-        cek_akses([1, 4]);
+        $this->check_role([1, 4]);
         $data['title'] = 'Edit Inventaris Barang';
         $data['inventaris'] = $this->Inventaris_model->get_by_id($id);
         
@@ -118,7 +114,7 @@ class Inventaris extends CI_Controller {
     }
 
     public function hapus($id) {
-        cek_akses([1, 4]);
+        $this->check_role([1, 4]);
         $inventaris = $this->Inventaris_model->get_by_id($id);
         if ($inventaris) {
             // Hapus foto jika ada
