@@ -33,7 +33,7 @@ $is_active = function($s1, $s2 = null) use ($seg1, $seg2) {
       <i class="fas fa-th-large"></i> Dashboard
     </a>
 
-    <?php if (in_array($role_id, [1, 4])): // Super Admin, Sekretaris ?>
+    <?php if (in_array($role_id, [1, 4, 6])): // Super Admin, Sekretaris, Pengurus ?>
       <div class="rt-sidebar-section">Data Master</div>
       <a href="<?= base_url('warga') ?>" class="rt-sidebar-item <?= $is_active('warga') ?>">
         <i class="fas fa-users"></i> Data Warga
@@ -43,7 +43,7 @@ $is_active = function($s1, $s2 = null) use ($seg1, $seg2) {
       </a>
     <?php endif; ?>
 
-    <?php if (in_array($role_id, [1, 3])): // Super Admin, Bendahara ?>
+    <?php if (in_array($role_id, [1, 3, 6])): // Super Admin, Bendahara, Pengurus ?>
       <div class="rt-sidebar-section">Keuangan & Iuran</div>
       <a href="<?= base_url('keuangan/pemasukan') ?>" class="rt-sidebar-item <?= $is_active('keuangan','pemasukan') ?>">
         <i class="fas fa-arrow-down"></i> Pemasukan Kas
@@ -66,7 +66,7 @@ $is_active = function($s1, $s2 = null) use ($seg1, $seg2) {
     <a href="<?= base_url('pengumuman') ?>" class="rt-sidebar-item <?= $is_active('pengumuman') ?>">
       <i class="fas fa-bullhorn"></i> Pengumuman
     </a>
-    <?php if (in_array($role_id, [1, 4])): // Super Admin, Sekretaris ?>
+    <?php if (in_array($role_id, [1, 4, 6])): // Super Admin, Sekretaris, Pengurus ?>
       <a href="<?= base_url('struktur') ?>" class="rt-sidebar-item <?= $is_active('struktur') ?>">
         <i class="fas fa-sitemap"></i> Struktur Organisasi
       </a>

@@ -5,7 +5,7 @@ class Keuangan extends MY_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->check_role([1, 3]); // Super Admin, Bendahara
+        $this->check_role([1, 3, 6]); // Super Admin, Bendahara, Pengurus
         $this->load->model('Keuangan_model');
     }
 
@@ -70,7 +70,10 @@ class Keuangan extends MY_Controller {
             $r[] = $row->keterangan;
             $r[] = 'Rp ' . number_format($row->nominal, 0, ',', '.');
             
-            $btn = '<button type="button" onclick="hapus_pemasukan('.$row->id.')" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>';
+            $btn = '';
+            if (in_array($this->role_id, [1, 3])) {
+                $btn = '<button type="button" onclick="hapus_pemasukan('.$row->id.')" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>';
+            }
             $r[] = $btn;
 
             $data[] = $r;
@@ -86,6 +89,7 @@ class Keuangan extends MY_Controller {
     }
 
     public function tambah_pemasukan() {
+        $this->check_role([1, 3]);
         $data = [
             'tanggal' => $this->input->post('tanggal', TRUE),
             'kategori' => $this->input->post('kategori', TRUE),
@@ -100,6 +104,7 @@ class Keuangan extends MY_Controller {
     }
 
     public function hapus_pemasukan($id) {
+        $this->check_role([1, 3]);
         $this->Keuangan_model->delete_pemasukan($id);
         $this->session->set_flashdata('success', 'Pemasukan berhasil dihapus.');
         redirect('keuangan/pemasukan');
@@ -167,7 +172,10 @@ class Keuangan extends MY_Controller {
             $r[] = $row->keterangan;
             $r[] = 'Rp ' . number_format($row->nominal, 0, ',', '.');
             
-            $btn = '<button type="button" onclick="hapus_pengeluaran('.$row->id.')" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>';
+            $btn = '';
+            if (in_array($this->role_id, [1, 3])) {
+                $btn = '<button type="button" onclick="hapus_pengeluaran('.$row->id.')" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>';
+            }
             $r[] = $btn;
 
             $data[] = $r;
@@ -183,6 +191,7 @@ class Keuangan extends MY_Controller {
     }
 
     public function tambah_pengeluaran() {
+        $this->check_role([1, 3]);
         $data = [
             'tanggal' => $this->input->post('tanggal', TRUE),
             'kategori' => $this->input->post('kategori', TRUE),
@@ -197,6 +206,7 @@ class Keuangan extends MY_Controller {
     }
 
     public function hapus_pengeluaran($id) {
+        $this->check_role([1, 3]);
         $this->Keuangan_model->delete_pengeluaran($id);
         $this->session->set_flashdata('success', 'Pengeluaran berhasil dihapus.');
         redirect('keuangan/pengeluaran');

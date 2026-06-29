@@ -10,7 +10,7 @@ class Struktur extends MY_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('Struktur_model');
-        $this->check_role([1, 4]); // Super Admin + Sekretaris
+        $this->check_role([1, 4, 6]); // Super Admin, Sekretaris, Pengurus
     }
 
     public function index() {
@@ -21,6 +21,7 @@ class Struktur extends MY_Controller {
     }
 
     public function tambah() {
+        $this->check_role([1, 4]);
         if ($this->input->method() === 'post') return $this->_save();
 
         $data['title']    = 'Tambah Pengurus';
@@ -32,6 +33,7 @@ class Struktur extends MY_Controller {
     }
 
     public function edit($id) {
+        $this->check_role([1, 4]);
         $row = $this->Struktur_model->get_by_id($id);
         if (!$row) {
             $this->session->set_flashdata('error', 'Data tidak ditemukan.');
@@ -48,6 +50,7 @@ class Struktur extends MY_Controller {
     }
 
     public function hapus($id) {
+        $this->check_role([1, 4]);
         $row = $this->Struktur_model->get_by_id($id);
         if (!$row) {
             $this->session->set_flashdata('error', 'Data tidak ditemukan.');
@@ -60,6 +63,7 @@ class Struktur extends MY_Controller {
 
     /** Toggle aktif / nonaktif (tanpa hapus) */
     public function toggle($id) {
+        $this->check_role([1, 4]);
         $row = $this->Struktur_model->get_by_id($id);
         if (!$row) {
             $this->session->set_flashdata('error', 'Data tidak ditemukan.');

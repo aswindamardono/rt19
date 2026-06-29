@@ -5,7 +5,7 @@ class Iuran extends MY_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->check_role([1, 3]); // Super Admin, Bendahara
+        $this->check_role([1, 3, 6]); // Super Admin, Bendahara, Pengurus
         $this->load->model('Iuran_model');
         $this->load->model('Keuangan_model');
     }
@@ -75,7 +75,10 @@ class Iuran extends MY_Controller {
             } else {
                 $r[] = '<span class="badge badge-danger">Belum Bayar</span>';
                 $r[] = '-';
-                $btn = '<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalBayar" data-id="'.$row->id.'" data-nama="'.$row->nama_lengkap.'" data-nominal="'.$row->nominal.'"><i class="fas fa-money-bill"></i> Bayar</button>';
+                $btn = '';
+                if (in_array($this->role_id, [1, 3])) {
+                    $btn = '<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalBayar" data-id="'.$row->id.'" data-nama="'.$row->nama_lengkap.'" data-nominal="'.$row->nominal.'"><i class="fas fa-money-bill"></i> Bayar</button>';
+                }
                 $r[] = $btn;
             }
 
@@ -92,6 +95,7 @@ class Iuran extends MY_Controller {
     }
 
     public function generate() {
+        $this->check_role([1, 3]);
         $bulan = $this->input->post('bulan');
         $tahun = $this->input->post('tahun');
         
@@ -105,6 +109,7 @@ class Iuran extends MY_Controller {
     }
 
     public function bayar() {
+        $this->check_role([1, 3]);
         $id = $this->input->post('id');
         $metode_bayar = $this->input->post('metode_bayar');
         $tanggal_bayar = $this->input->post('tanggal_bayar') ?: date('Y-m-d');

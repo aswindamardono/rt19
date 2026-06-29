@@ -5,7 +5,7 @@ class Warga extends MY_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->check_role([1, 4]); // Only Super Admin and Sekretaris can access Warga
+        $this->check_role([1, 4, 6]); // Super Admin, Sekretaris, Pengurus
         $this->load->model('Warga_model');
     }
 
@@ -86,8 +86,11 @@ class Warga extends MY_Controller {
                 $row[] = '-';
             }
             
-            $btn = '<a href="'.base_url('warga/edit/'.$warga->id).'" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a> ';
-            $btn .= '<button type="button" onclick="hapus_warga('.$warga->id.')" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>';
+            $btn = '';
+            if (in_array($this->role_id, [1, 4])) {
+                $btn = '<a href="'.base_url('warga/edit/'.$warga->id).'" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a> ';
+                $btn .= '<button type="button" onclick="hapus_warga('.$warga->id.')" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>';
+            }
             $row[] = $btn;
 
             $data[] = $row;
@@ -104,6 +107,8 @@ class Warga extends MY_Controller {
 
     public function tambah() {
         $data['title'] = 'Tambah Warga';
+
+        $this->check_role([1, 4]); // Only Super Admin and Sekretaris can add
 
         if ($this->input->post()) {
             $insert_data = [
@@ -138,6 +143,8 @@ class Warga extends MY_Controller {
             show_404();
         }
 
+        $this->check_role([1, 4]); // Only Super Admin and Sekretaris can edit
+
         if ($this->input->post()) {
             $update_data = [
                 'nik' => $this->input->post('nik', TRUE),
@@ -164,6 +171,7 @@ class Warga extends MY_Controller {
     }
 
     public function hapus($id) {
+        $this->check_role([1, 4]); // Only Super Admin and Sekretaris can delete
         $this->Warga_model->delete($id);
         $this->session->set_flashdata('success', 'Data warga berhasil dihapus.');
         redirect('warga');
