@@ -71,13 +71,19 @@ class Iuran extends MY_Controller {
             if ($row->status == 'Lunas') {
                 $r[] = '<span class="badge badge-success">Lunas</span>';
                 $r[] = date('d-m-Y', strtotime($row->tanggal_bayar));
-                $r[] = '-'; // No action needed
+                
+                $btn = '';
+                if (in_array($this->role_id, [1, 3])) {
+                    $btn .= '<a href="'.base_url('iuran/delete/'.$row->id).'" class="btn btn-sm btn-danger ml-1" onclick="return confirm(\'Apakah Anda yakin ingin menghapus data iuran ini?\')"><i class="fas fa-trash"></i></a>';
+                }
+                $r[] = $btn;
             } else {
                 $r[] = '<span class="badge badge-danger">Belum Bayar</span>';
                 $r[] = '-';
                 $btn = '';
                 if (in_array($this->role_id, [1, 3])) {
-                    $btn = '<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalBayar" data-id="'.$row->id.'" data-nama="'.$row->nama_lengkap.'" data-nominal="'.$row->nominal.'"><i class="fas fa-money-bill"></i> Bayar</button>';
+                    $btn .= '<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalBayar" data-id="'.$row->id.'" data-nama="'.$row->nama_lengkap.'" data-nominal="'.$row->nominal.'"><i class="fas fa-money-bill"></i> Bayar</button>';
+                    $btn .= '<a href="'.base_url('iuran/delete/'.$row->id).'" class="btn btn-sm btn-danger ml-1" onclick="return confirm(\'Apakah Anda yakin ingin menghapus data iuran ini?\')"><i class="fas fa-trash"></i></a>';
                 }
                 $r[] = $btn;
             }
@@ -139,6 +145,15 @@ class Iuran extends MY_Controller {
         } else {
             $this->session->set_flashdata('error', 'Pembayaran gagal diproses.');
         }
+        redirect('iuran');
+    }
+
+    public function delete($id) {
+        $this->check_role([1, 3]);
+        
+        $this->Iuran_model->delete($id);
+        
+        $this->session->set_flashdata('success', 'Data iuran berhasil dihapus.');
         redirect('iuran');
     }
 

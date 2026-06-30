@@ -61,6 +61,11 @@ class Iuran_model extends CI_Model {
         $this->db->update('tb_iuran', $data);
     }
 
+    public function delete($id) {
+        $this->db->where('id', $id);
+        $this->db->delete('tb_iuran');
+    }
+
     public function generate_tagihan_bulanan($bulan, $tahun, $nominal) {
         // Ambil semua warga aktif
         $this->db->where('status_aktif', 1);
