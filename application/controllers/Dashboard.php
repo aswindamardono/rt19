@@ -13,8 +13,9 @@ class Dashboard extends MY_Controller {
         
         // Statistics
         $data['total_warga'] = $this->Dashboard_model->get_total_warga();
-        $data['total_kk'] = $this->Dashboard_model->get_total_kk();
         $data['total_kas'] = $this->Dashboard_model->get_total_kas();
+        $data['total_pemasukan'] = $this->Dashboard_model->get_total_pemasukan();
+        $data['total_pengeluaran'] = $this->Dashboard_model->get_total_pengeluaran();
         $data['total_tunggakan'] = $this->Dashboard_model->get_total_tunggakan();
         
         // Arrears list

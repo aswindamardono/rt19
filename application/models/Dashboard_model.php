@@ -26,6 +26,16 @@ class Dashboard_model extends CI_Model {
         return $pemasukan - $pengeluaran;
     }
 
+    public function get_total_pemasukan() {
+        $this->db->select_sum('nominal');
+        return $this->db->get('tb_pemasukan')->row()->nominal ?? 0;
+    }
+
+    public function get_total_pengeluaran() {
+        $this->db->select_sum('nominal');
+        return $this->db->get('tb_pengeluaran')->row()->nominal ?? 0;
+    }
+
     public function get_total_tunggakan() {
         $this->db->select_sum('nominal');
         $this->db->where('status', 'Belum Bayar');
