@@ -46,6 +46,8 @@
   <?php endif; ?>
 </div>
 
+</div> <!-- Close pub-page BEFORE the modal -->
+
 <!-- Modal Detail Inventaris -->
 <div class="rt-modal-overlay" id="invModal" onclick="if(event.target===this) closeInvModal()">
   <div class="rt-modal-card">
@@ -118,4 +120,3 @@ function escapeHtml(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
 }
 </script>
-</div>

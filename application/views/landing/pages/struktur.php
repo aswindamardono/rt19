@@ -1,12 +1,14 @@
 <!-- Struktur Organisasi Page -->
-<div class="pub-page" data-aos="fade-up" data-aos-duration="500">
-<div class="pub-page-header">
+<div class="pub-page" data-aos="fade-up" data-aos-duration="500" style="padding-bottom: 0;">
+<div class="pub-page-header" style="margin-bottom: 0.5rem;">
   <h1><i class="fas fa-sitemap"></i> Struktur Organisasi</h1>
   <p>Susunan pengurus RT-19 Orchid Regency &mdash; klik kartu untuk melihat detail</p>
 </div>
+</div> <!-- Close pub-page early -->
 
 <?php if (!empty($struktur)): ?>
-<div class="orgchart-wrapper" data-aos="fade-up" data-aos-delay="100">
+<!-- Full width wrapper for the chart -->
+<div class="orgchart-wrapper" data-aos="fade-up" data-aos-delay="100" style="padding: 1rem 2rem 3rem; overflow-x: auto;">
   <?php
   // Build hierarchy tree
   function build_tree_public($items, $parent_id = null) {
@@ -78,10 +80,12 @@
   ?>
 </div>
 <?php else: ?>
-<div class="pub-empty" data-aos="fade-up">
-  <i class="fas fa-sitemap"></i>
-  <h3>Belum ada data struktur</h3>
-  <p>Data struktur organisasi belum ditambahkan.</p>
+<div class="pub-page" style="padding-top: 0;">
+  <div class="pub-empty" data-aos="fade-up">
+    <i class="fas fa-sitemap"></i>
+    <h3>Belum ada data struktur</h3>
+    <p>Data struktur organisasi belum ditambahkan.</p>
+  </div>
 </div>
 <?php endif; ?>
 
@@ -165,4 +169,3 @@ function escapeHtml(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
 }
 </script>
-</div>

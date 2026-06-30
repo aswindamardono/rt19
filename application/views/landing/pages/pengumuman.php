@@ -51,6 +51,8 @@
   <?php endif; ?>
 </div>
 
+</div> <!-- Close pub-page BEFORE the modal -->
+
 <!-- Modal Detail Pengumuman -->
 <div class="rt-modal-overlay" id="annModal" onclick="if(event.target===this) closeAnnModal()">
   <div class="rt-modal-card" style="max-width: 600px;">
@@ -104,4 +106,3 @@ if (typeof escapeHtml !== 'function') {
   }
 }
 </script>
-</div>
