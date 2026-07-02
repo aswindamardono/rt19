@@ -691,10 +691,12 @@ $active = isset($active_menu) ? $active_menu : 'keuangan';
       max-width: 500px;
       margin: 0 auto;
     }
+
     .org-tree-node {
       position: relative;
       margin-bottom: 0.85rem;
     }
+
     .org-tree-children {
       margin-left: 30px;
       padding-left: 22px;
@@ -702,6 +704,7 @@ $active = isset($active_menu) ? $active_menu : 'keuangan';
       position: relative;
       margin-top: 0.85rem;
     }
+
     .org-tree-children .org-tree-node::before {
       content: '';
       position: absolute;
@@ -711,7 +714,7 @@ $active = isset($active_menu) ? $active_menu : 'keuangan';
       height: 2px;
       background-color: var(--emerald-400);
     }
-    
+
     .org-card {
       display: flex;
       align-items: center;
@@ -725,15 +728,18 @@ $active = isset($active_menu) ? $active_menu : 'keuangan';
       position: relative;
       z-index: 2;
     }
+
     .org-card:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 16px rgba(16, 185, 129, 0.12);
     }
+
     .org-card.org-root {
       background: var(--emerald-700);
       border-color: var(--emerald-800);
       box-shadow: 0 4px 12px rgba(4, 120, 87, 0.2);
     }
+
     .org-avatar {
       width: 44px;
       height: 44px;
@@ -751,11 +757,13 @@ $active = isset($active_menu) ? $active_menu : 'keuangan';
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
       object-fit: cover;
     }
+
     .org-card.org-root .org-avatar {
       background: rgba(255, 255, 255, 0.2);
       border: 1.5px solid rgba(255, 255, 255, 0.4);
       box-shadow: none;
     }
+
     .org-info {
       display: flex;
       flex-direction: column;
@@ -763,6 +771,7 @@ $active = isset($active_menu) ? $active_menu : 'keuangan';
       overflow: hidden;
       text-align: left;
     }
+
     .org-title {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 0.65rem;
@@ -773,9 +782,11 @@ $active = isset($active_menu) ? $active_menu : 'keuangan';
       margin-bottom: 2px;
       line-height: 1.2;
     }
+
     .org-card.org-root .org-title {
       color: rgba(255, 255, 255, 0.85);
     }
+
     .org-name {
       font-size: 0.88rem;
       font-weight: 600;
@@ -786,14 +797,17 @@ $active = isset($active_menu) ? $active_menu : 'keuangan';
       margin: 0;
       line-height: 1.3;
     }
+
     .org-card.org-root .org-name {
       color: white;
     }
+
     .org-name-empty {
       font-style: italic;
       font-weight: 400;
       color: #94a3b8;
     }
+
     .org-card.org-root .org-name-empty {
       color: rgba(255, 255, 255, 0.6);
     }
@@ -807,14 +821,17 @@ $active = isset($active_menu) ? $active_menu : 'keuangan';
         margin: 0;
         padding: 0;
       }
+
       .org-tree-node {
         display: flex;
         flex-direction: column;
         align-items: center;
         margin: 0;
-        padding: 20px 8px 0; /* 8px horizontal padding creates gap between siblings */
+        padding: 20px 8px 0;
+        /* 8px horizontal padding creates gap between siblings */
         margin-bottom: 0;
       }
+
       .org-tree-children {
         display: flex;
         flex-direction: row;
@@ -825,7 +842,7 @@ $active = isset($active_menu) ? $active_menu : 'keuangan';
         margin-top: 0;
         padding-top: 20px;
       }
-      
+
       /* Vertical line from parent dropping down to children */
       .org-tree-children::before {
         content: '';
@@ -837,14 +854,15 @@ $active = isset($active_menu) ? $active_menu : 'keuangan';
         background-color: var(--emerald-400);
         transform: translateX(-50%);
       }
-      
+
       /* Reset vertical mobile lines */
       .org-tree-children .org-tree-node::before {
         display: none;
       }
-      
+
       /* Horizontal connecting line across siblings */
-      .org-tree-node::before, .org-tree-node::after {
+      .org-tree-node::before,
+      .org-tree-node::after {
         content: '';
         display: block;
         position: absolute;
@@ -856,45 +874,50 @@ $active = isset($active_menu) ? $active_menu : 'keuangan';
         background: transparent;
         left: auto;
       }
+
       .org-tree-node::after {
         right: auto;
         left: 50%;
         border-left: 2px solid var(--emerald-400);
       }
-      
+
       /* Clean up connectors for edge nodes */
-      .org-tree-node:first-child::before, .org-tree-node:last-child::after {
+      .org-tree-node:first-child::before,
+      .org-tree-node:last-child::after {
         border: none;
       }
-      
+
       /* Connect outer ends downwards */
       .org-tree-node:first-child::after {
         border-radius: 6px 0 0 0;
       }
+
       .org-tree-node:last-child::before {
         border-right: 2px solid var(--emerald-400);
         border-radius: 0 6px 0 0;
       }
-      
+
       /* Only child should only have a vertical line */
       .org-tree-node:first-child:last-child::before {
         border: none;
         border-right: 2px solid var(--emerald-400);
         border-radius: 0;
       }
+
       .org-tree-node:first-child:last-child::after {
         border: none;
       }
-      
+
       /* Also hide horizontal lines from the root node (first child, no parent) */
-      .org-tree-list > .org-tree-node::before,
-      .org-tree-list > .org-tree-node::after {
+      .org-tree-list>.org-tree-node::before,
+      .org-tree-list>.org-tree-node::after {
         border: none !important;
       }
-      .org-tree-list > .org-tree-node {
+
+      .org-tree-list>.org-tree-node {
         padding-top: 0;
       }
-      
+
       /* Adjust card layout for horizontal mode */
       .org-card {
         width: 220px;
@@ -902,6 +925,7 @@ $active = isset($active_menu) ? $active_menu : 'keuangan';
         text-align: center;
         padding: 14px 10px;
       }
+
       .org-avatar {
         margin-right: 0;
         margin-bottom: 8px;
@@ -909,10 +933,12 @@ $active = isset($active_menu) ? $active_menu : 'keuangan';
         height: 50px;
         font-size: 1.4rem;
       }
+
       .org-info {
         align-items: center;
         overflow: visible;
       }
+
       .org-name {
         white-space: normal;
         word-break: break-word;
@@ -1163,7 +1189,7 @@ $active = isset($active_menu) ? $active_menu : 'keuangan';
   <nav class="pub-topnav">
     <a href="<?= base_url() ?>" class="pub-topnav-logo">
       <img src="<?= base_url('assets/img/logo.png') ?>" alt="RT-19" onerror="this.style.display='none'">
-      <span>RT-19</span>
+      <span>RT-19 ORCHID REGENCY</span>
     </a>
     <a href="<?= base_url('auth') ?>" class="pub-mobile-cta">
       <i class="fas fa-sign-in-alt"></i> Login
