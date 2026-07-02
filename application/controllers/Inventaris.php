@@ -14,10 +14,21 @@ class Inventaris extends MY_Controller {
         $data['title'] = 'Data Inventaris Barang';
         $data['inventaris'] = $this->Inventaris_model->get_all();
         
-        $this->load->view('layout/header', $data);
-        $this->load->view('layout/sidebar', $data);
-        $this->load->view('inventaris/index', $data);
-        $this->load->view('layout/footer');
+        $data['custom_js'] = "
+        <script>
+            $(document).ready(function() {
+                $('#table-inventaris').DataTable({
+                    'responsive': true,
+                    'autoWidth': false,
+                    'columnDefs': [
+                        { 'orderable': false, 'targets': [1, -1] }
+                    ]
+                });
+            });
+        </script>
+        ";
+
+        $this->render('inventaris/index', $data);
     }
 
     public function tambah() {
@@ -29,20 +40,14 @@ class Inventaris extends MY_Controller {
         $this->form_validation->set_rules('kondisi', 'Kondisi', 'required');
 
         if ($this->form_validation->run() == FALSE) {
-            $this->load->view('layout/header', $data);
-            $this->load->view('layout/sidebar', $data);
-            $this->load->view('inventaris/form', $data);
-            $this->load->view('layout/footer');
+            $this->render('inventaris/form', $data);
         } else {
             $foto = false;
             if (!empty($_FILES['foto']['name'])) {
                 $foto = $this->_upload_foto();
                 if (!$foto) {
                     // Jika upload gagal, kembalikan ke form
-                    $this->load->view('layout/header', $data);
-                    $this->load->view('layout/sidebar', $data);
-                    $this->load->view('inventaris/form', $data);
-                    $this->load->view('layout/footer');
+                    $this->render('inventaris/form', $data);
                     return;
                 }
             }
@@ -79,10 +84,7 @@ class Inventaris extends MY_Controller {
         $this->form_validation->set_rules('kondisi', 'Kondisi', 'required');
 
         if ($this->form_validation->run() == FALSE) {
-            $this->load->view('layout/header', $data);
-            $this->load->view('layout/sidebar', $data);
-            $this->load->view('inventaris/form', $data);
-            $this->load->view('layout/footer');
+            $this->render('inventaris/form', $data);
         } else {
             $update_data = [
                 'nama_barang' => $this->input->post('nama_barang', true),
@@ -94,10 +96,7 @@ class Inventaris extends MY_Controller {
             if (!empty($_FILES['foto']['name'])) {
                 $foto = $this->_upload_foto();
                 if (!$foto) {
-                    $this->load->view('layout/header', $data);
-                    $this->load->view('layout/sidebar', $data);
-                    $this->load->view('inventaris/form', $data);
-                    $this->load->view('layout/footer');
+                    $this->render('inventaris/form', $data);
                     return;
                 }
                 // Hapus foto lama jika ada
@@ -132,7 +131,7 @@ class Inventaris extends MY_Controller {
     private function _upload_foto() {
         $config['upload_path']   = './assets/img/inventaris/';
         $config['allowed_types'] = 'gif|jpg|jpeg|png';
-        $config['max_size']      = 2048; // 2MB
+        $config['max_size']      = 10240; // 10MB
         $config['encrypt_name']  = TRUE;
 
         if (!is_dir($config['upload_path'])) {
@@ -142,6 +141,7 @@ class Inventaris extends MY_Controller {
         $this->upload->initialize($config);
 
         if ($this->upload->do_upload('foto')) {
+            $this->_auto_resize_image($this->upload->data('full_path'));
             return $this->upload->data('file_name');
         } else {
             $this->session->set_flashdata('error', $this->upload->display_errors('',''));

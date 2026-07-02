@@ -15,7 +15,7 @@
             <div class="alert alert-danger"><?= $this->session->flashdata('error') ?></div>
         <?php endif; ?>
 
-        <table class="table table-bordered table-striped dt-responsive nowrap rt-table" style="width:100%">
+        <table id="table-inventaris" class="table table-bordered table-striped dt-responsive nowrap rt-table" style="width:100%">
             <thead>
                 <tr>
                     <th>No</th>
