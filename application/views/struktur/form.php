@@ -116,6 +116,7 @@ $suggest = [
                         border-radius: var(--radius-md); padding: 1.25rem; text-align: center;">
               <?php if ($foto_url): ?>
                 <img id="prv" src="<?= $foto_url ?>" alt=""
+                     class="img-preview"
                      style="width:120px;height:120px;border-radius:50%;object-fit:cover;
                             border:3px solid white; box-shadow: var(--shadow-md); margin-bottom: 0.75rem;">
               <?php else: ?>
@@ -124,6 +125,7 @@ $suggest = [
                   <i class="fas fa-user"></i>
                 </div>
                 <img id="prv" src="" alt=""
+                     class="img-preview"
                      style="display:none;width:120px;height:120px;border-radius:50%;object-fit:cover;
                             border:3px solid white; box-shadow: var(--shadow-md); margin-bottom: 0.75rem;">
               <?php endif; ?>
@@ -133,7 +135,7 @@ $suggest = [
                        name="foto" accept="image/*" onchange="previewFoto(this)">
                 <label class="custom-file-label" for="foto">Pilih foto...</label>
               </div>
-              <small class="text-muted d-block mt-2">JPG / PNG / WebP. Maks 2 MB.</small>
+              <small class="text-muted d-block mt-2">JPG / PNG / WebP. Maks 10 MB.</small>
             </div>
           </div>
         </div>

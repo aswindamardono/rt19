@@ -185,8 +185,35 @@ $popup_menus[] = ['url' => 'auth/logout', 'icon' => 'fa-sign-out-alt', 'label' =
         showConfirmButton: true
       });
     <?php endif; ?>
+    
+    // Image Preview with SweetAlert2
+    $(document).on('click', '.img-preview', function() {
+      var src = $(this).attr('src');
+      var alt = $(this).attr('alt') || 'Preview Gambar';
+      Swal.fire({
+        title: alt,
+        imageUrl: src,
+        imageAlt: alt,
+        showConfirmButton: false,
+        showCloseButton: true,
+        width: 'auto',
+        padding: '1em',
+        customClass: {
+          image: 'img-fluid rounded'
+        }
+      });
+    });
   });
 </script>
+<style>
+  .img-preview {
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .img-preview:hover {
+    transform: scale(1.05);
+  }
+</style>
 
 <?php if (isset($custom_js) && $custom_js): ?>
   <?= $custom_js ?>

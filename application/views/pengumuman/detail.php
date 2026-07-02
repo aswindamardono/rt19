@@ -13,7 +13,7 @@
             
             <?php if($pengumuman->gambar): ?>
             <div class="col-md-12 mb-4 text-center">
-                <img src="<?= base_url('uploads/pengumuman/'.$pengumuman->gambar) ?>" class="img-fluid rounded" style="max-height: 400px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                <img src="<?= base_url('uploads/pengumuman/'.$pengumuman->gambar) ?>" class="img-fluid rounded img-preview" style="max-height: 400px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
             </div>
             <?php endif; ?>
             

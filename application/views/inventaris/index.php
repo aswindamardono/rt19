@@ -35,7 +35,7 @@
                     <td><?= $no++ ?></td>
                     <td>
                         <?php if($item->foto): ?>
-                            <img src="<?= base_url('assets/img/inventaris/' . $item->foto) ?>" alt="<?= htmlspecialchars($item->nama_barang, ENT_QUOTES) ?>" class="img-thumbnail" style="max-width: 80px; max-height: 80px; object-fit: cover;">
+                            <img src="<?= base_url('assets/img/inventaris/' . $item->foto) ?>" alt="<?= htmlspecialchars($item->nama_barang, ENT_QUOTES) ?>" class="img-thumbnail img-preview" style="max-width: 80px; max-height: 80px; object-fit: cover;">
                         <?php else: ?>
                             <span class="text-muted"><i>Tidak ada foto</i></span>
                         <?php endif; ?>

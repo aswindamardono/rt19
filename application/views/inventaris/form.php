@@ -54,11 +54,11 @@
             <div class="form-group mb-4">
                 <label for="foto">Foto Barang</label>
                 <input type="file" class="form-control" id="foto" name="foto" accept="image/png, image/jpeg, image/gif">
-                <small class="form-text text-muted">Format yang diizinkan: JPG, JPEG, PNG, GIF. Maksimal ukuran: 2MB.</small>
+                <small class="form-text text-muted">Format yang diizinkan: JPG, JPEG, PNG, GIF. Maksimal ukuran: 10MB.</small>
                 <?php if($is_edit && $inventaris->foto): ?>
                     <div class="mt-2">
                         <p class="mb-1">Foto Saat Ini:</p>
-                        <img src="<?= base_url('assets/img/inventaris/'.$inventaris->foto) ?>" alt="Foto" class="img-thumbnail" style="max-width: 200px;">
+                        <img src="<?= base_url('assets/img/inventaris/'.$inventaris->foto) ?>" alt="Foto" class="img-thumbnail img-preview" style="max-width: 200px;">
                     </div>
                 <?php endif; ?>
             </div>

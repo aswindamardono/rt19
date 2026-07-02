@@ -44,7 +44,7 @@
                 <td class="text-center">
                   <?php if ($has_foto): ?>
                     <img src="<?= base_url('uploads/struktur/' . $row->foto) ?>"
-                         alt="" style="width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid #d1fae5;">
+                         alt="" class="img-preview" style="width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid #d1fae5;">
                   <?php else: ?>
                     <div class="rt-avatar" style="margin:0 auto;"><?= htmlspecialchars($initial, ENT_QUOTES) ?></div>
                   <?php endif; ?>

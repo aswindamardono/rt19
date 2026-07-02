@@ -19,21 +19,29 @@
       ], JSON_HEX_APOS|JSON_HEX_QUOT);
     ?>
       <div class="pub-stat" data-aos="fade-up" data-aos-delay="<?= 100 + $i * 60 ?>" 
-           style="cursor: pointer; transition: all 0.2s;" 
+           style="cursor: pointer; transition: all 0.2s; display: flex; align-items: center; text-align: left; padding: 1.25rem; gap: 1.25rem;" 
            onclick='openInvModal(<?= $js_data ?>)'
            onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 10px 25px rgba(16,185,129,0.15)';"
            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='';">
-        <div class="pub-stat-icon" style="background:#ecfdf5; color:var(--emerald-600);">
-          <i class="fas fa-box"></i>
+        
+        <div class="pub-stat-icon" style="flex-shrink: 0; margin: 0; width: 90px; height: 90px; background:#ecfdf5; color:var(--emerald-600); overflow:hidden; border-radius: 12px; display: flex; align-items: center; justify-content: center; <?php if($foto_url) echo 'padding:0;'; ?>">
+          <?php if($foto_url): ?>
+            <img src="<?= htmlspecialchars($foto_url) ?>" alt="" style="width:100%; height:100%; object-fit:cover;">
+          <?php else: ?>
+            <i class="fas fa-box" style="font-size: 2.5rem;"></i>
+          <?php endif; ?>
         </div>
-        <div class="pub-stat-label"><?= htmlspecialchars($inv->nama_barang, ENT_QUOTES) ?></div>
-        <div class="pub-stat-value" style="font-size: 1.35rem; color: var(--emerald-800);">
-          <?= (int)$inv->jumlah ?>
-        </div>
-        <div class="pub-stat-period">
-          Kondisi: <strong style="color: <?= $inv->kondisi === 'Baik' ? '#059669' : ($inv->kondisi === 'Rusak' ? '#dc2626' : '#d97706') ?>;">
-            <?= htmlspecialchars($inv->kondisi, ENT_QUOTES) ?>
-          </strong>
+        
+        <div style="flex-grow: 1;">
+            <div class="pub-stat-label" style="margin-bottom: 0.25rem; font-size: 1.05rem; color: var(--slate-800); text-align: left;"><?= htmlspecialchars($inv->nama_barang, ENT_QUOTES) ?></div>
+            <div class="pub-stat-value" style="font-size: 1.35rem; color: var(--emerald-800); margin-bottom: 0.25rem; text-align: left;">
+              <?= (int)$inv->jumlah ?> <span style="font-size: 0.85rem; font-weight: normal; color: var(--slate-500);">Item</span>
+            </div>
+            <div class="pub-stat-period" style="margin-top: 0; text-align: left;">
+              Kondisi: <strong style="color: <?= $inv->kondisi === 'Baik' ? '#059669' : ($inv->kondisi === 'Rusak' ? '#dc2626' : '#d97706') ?>;">
+                <?= htmlspecialchars($inv->kondisi, ENT_QUOTES) ?>
+              </strong>
+            </div>
         </div>
       </div>
     <?php endforeach; ?>
