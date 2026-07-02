@@ -109,13 +109,14 @@ class Struktur extends MY_Controller {
             $config = [
                 'upload_path'   => $upload_path,
                 'allowed_types' => 'jpg|jpeg|png|webp',
-                'max_size'      => 2048,
+                'max_size'      => 10240,
                 'encrypt_name'  => TRUE,
             ];
             $this->upload->initialize($config);
 
             if ($this->upload->do_upload('foto')) {
                 $up = $this->upload->data();
+                $this->_auto_resize_image($up['full_path']);
                 $data['foto'] = $up['file_name'];
 
                 // Hapus foto lama jika edit

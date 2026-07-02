@@ -127,7 +127,7 @@ class Surat extends MY_Controller {
             if (!empty($_FILES['dokumen_pendukung']['name'])) {
                 $config['upload_path']          = './uploads/dokumen/';
                 $config['allowed_types']        = 'pdf|jpg|jpeg|png';
-                $config['max_size']             = 2048; // 2MB
+                $config['max_size']             = 10240; // 10MB
                 $config['encrypt_name']         = TRUE;
 
                 if (!is_dir($config['upload_path'])) mkdir($config['upload_path'], 0777, TRUE);
@@ -135,6 +135,9 @@ class Surat extends MY_Controller {
                 $this->upload->initialize($config);
 
                 if ($this->upload->do_upload('dokumen_pendukung')) {
+                    if ($this->upload->data('is_image')) {
+                        $this->_auto_resize_image($this->upload->data('full_path'));
+                    }
                     $insert_data['dokumen_pendukung'] = $this->upload->data('file_name');
                 } else {
                     $this->session->set_flashdata('error', $this->upload->display_errors());

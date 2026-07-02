@@ -35,4 +35,18 @@ class MY_Controller extends CI_Controller {
         $data['content'] = $view;
         $this->load->view('layout/wrapper', $data);
     }
+    protected function _auto_resize_image($file_path, $max_width = 1200, $max_height = 1200, $quality = '70%') {
+        $config_resize['image_library'] = 'gd2';
+        $config_resize['source_image'] = $file_path;
+        $config_resize['maintain_ratio'] = TRUE;
+        $config_resize['width'] = $max_width;
+        $config_resize['height'] = $max_height;
+        $config_resize['quality'] = $quality;
+        
+        $this->load->library('image_lib', $config_resize);
+        $this->image_lib->initialize($config_resize);
+        
+        $this->image_lib->resize();
+        $this->image_lib->clear();
+    }
 }

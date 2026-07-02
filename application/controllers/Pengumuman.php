@@ -91,7 +91,7 @@ class Pengumuman extends MY_Controller {
             if (!empty($_FILES['gambar']['name'])) {
                 $config['upload_path']          = './uploads/pengumuman/';
                 $config['allowed_types']        = 'jpg|jpeg|png';
-                $config['max_size']             = 2048; // 2MB
+                $config['max_size']             = 10240; // 10MB
                 $config['encrypt_name']         = TRUE;
 
                 if (!is_dir($config['upload_path'])) mkdir($config['upload_path'], 0777, TRUE);
@@ -99,6 +99,7 @@ class Pengumuman extends MY_Controller {
                 $this->upload->initialize($config);
 
                 if ($this->upload->do_upload('gambar')) {
+                    $this->_auto_resize_image($this->upload->data('full_path'));
                     $insert_data['gambar'] = $this->upload->data('file_name');
                 }
             }
@@ -136,7 +137,7 @@ class Pengumuman extends MY_Controller {
             if (!empty($_FILES['gambar']['name'])) {
                 $config['upload_path']          = './uploads/pengumuman/';
                 $config['allowed_types']        = 'jpg|jpeg|png';
-                $config['max_size']             = 2048; // 2MB
+                $config['max_size']             = 10240; // 10MB
                 $config['encrypt_name']         = TRUE;
 
                 if (!is_dir($config['upload_path'])) mkdir($config['upload_path'], 0777, TRUE);
@@ -144,6 +145,7 @@ class Pengumuman extends MY_Controller {
                 $this->upload->initialize($config);
 
                 if ($this->upload->do_upload('gambar')) {
+                    $this->_auto_resize_image($this->upload->data('full_path'));
                     if ($data['pengumuman']->gambar && file_exists('./uploads/pengumuman/' . $data['pengumuman']->gambar)) {
                         unlink('./uploads/pengumuman/' . $data['pengumuman']->gambar);
                     }
