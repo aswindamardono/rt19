@@ -684,6 +684,7 @@ $active = isset($active_menu) ? $active_menu : 'keuangan';
       background: transparent;
       overflow-x: auto;
       padding-bottom: 2rem;
+      -webkit-overflow-scrolling: touch;
     }
 
     /* Default (Mobile): Vertical Tree */
@@ -820,6 +821,7 @@ $active = isset($active_menu) ? $active_menu : 'keuangan';
         justify-content: center;
         margin: 0;
         padding: 0;
+        min-width: max-content;
       }
 
       .org-tree-node {
@@ -827,8 +829,8 @@ $active = isset($active_menu) ? $active_menu : 'keuangan';
         flex-direction: column;
         align-items: center;
         margin: 0;
-        padding: 20px 8px 0;
-        /* 8px horizontal padding creates gap between siblings */
+        padding: 20px 6px 0;
+        flex-shrink: 0;
         margin-bottom: 0;
       }
 
@@ -920,10 +922,11 @@ $active = isset($active_menu) ? $active_menu : 'keuangan';
 
       /* Adjust card layout for horizontal mode */
       .org-card {
-        width: 220px;
+        width: 160px;
+        min-width: 140px;
         flex-direction: column;
         text-align: center;
-        padding: 14px 10px;
+        padding: 12px 8px;
       }
 
       .org-avatar {

@@ -8,7 +8,7 @@
 
 <?php if (!empty($struktur)): ?>
 <!-- Full width wrapper for the chart -->
-<div class="orgchart-wrapper" data-aos="fade-up" data-aos-delay="100" style="padding: 1rem 2rem 3rem; overflow-x: auto;">
+<div class="orgchart-wrapper" data-aos="fade-up" data-aos-delay="100" style="padding: 1rem 1rem 3rem; overflow-x: auto;">
   <?php
   // Build hierarchy tree
   function build_tree_public($items, $parent_id = null) {
