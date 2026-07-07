@@ -15,6 +15,9 @@ $active = isset($active_menu) ? $active_menu : 'keuangan';
   <meta name="description" content="RT-19 Orchid Regency Sidoarjo — Transparansi keuangan & informasi warga.">
   <title><?= isset($page_title) ? $page_title : 'Beranda' ?> — RT-19 Orchid Regency</title>
 
+  <link rel="icon" type="image/png" href="<?= base_url('assets/img/favicon.png') ?>">
+  <link rel="apple-touch-icon" href="<?= base_url('assets/img/favicon.png') ?>">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -78,10 +81,11 @@ $active = isset($active_menu) ? $active_menu : 'keuangan';
     }
 
     .pub-topnav-logo img {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
       object-fit: cover;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.10);
     }
 
     .pub-topnav-cta {

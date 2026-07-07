@@ -117,14 +117,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 .rt-sidebar-logo:hover { text-decoration: none; }
 .rt-sidebar-logo-icon {
-    width: 42px; height: 42px;
-    background: rgba(255,255,255,0.2);
-    border-radius: var(--radius-md);
+    width: 46px; height: 46px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     overflow: hidden;
     flex-shrink: 0;
+    border: 1px solid rgba(255,255,255,0.2);
 }
-.rt-sidebar-logo-icon img { width: 32px; height: 32px; border-radius: 6px; }
+.rt-sidebar-logo-icon img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
 .rt-sidebar-logo h1 {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 1rem;
@@ -252,8 +253,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 .rt-mobile-header-logo:hover { color: white; text-decoration: none; }
 .rt-mobile-header-logo img {
-    width: 28px; height: 28px;
-    border-radius: 6px;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 .rt-mobile-header-logo span {
     font-family: 'Plus Jakarta Sans', sans-serif;
@@ -1012,15 +1014,16 @@ select.form-control {
     z-index: 1;
 }
 .rt-login-logo {
-    width: 72px; height: 72px;
+    width: 88px; height: 88px;
     margin: 0 auto 1.25rem;
-    background: rgba(255,255,255,0.15);
-    border-radius: var(--radius-lg);
+    background: rgba(255,255,255,0.12);
+    border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    border: 1px solid rgba(255,255,255,0.2);
+    border: 2px solid rgba(255,255,255,0.25);
     overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
 }
-.rt-login-logo img { width: 48px; height: 48px; border-radius: 8px; }
+.rt-login-logo img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
 .rt-login-title {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 1.6rem;

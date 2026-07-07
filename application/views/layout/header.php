@@ -16,6 +16,8 @@ $active_seg2 = $this->uri->segment(2);
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title><?= isset($title) ? $title.' — ' : '' ?>RT-19 Orchid Regency</title>
+  <link rel="icon" type="image/png" href="<?= base_url('assets/img/favicon.png') ?>">
+  <link rel="apple-touch-icon" href="<?= base_url('assets/img/favicon.png') ?>">
 
   <!-- Preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
