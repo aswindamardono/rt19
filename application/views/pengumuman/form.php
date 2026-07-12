@@ -18,8 +18,8 @@
             <div class="form-group">
                 <label>Gambar Lampiran (Opsional)</label>
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" name="gambar" id="customFile" accept=".jpg,.jpeg,.png">
-                    <label class="custom-file-label" for="customFile">Pilih gambar...</label>
+                    <input type="file" class="custom-file-input" name="gambar[]" id="customFile" accept=".jpg,.jpeg,.png" multiple>
+                    <label class="custom-file-label" for="customFile">Pilih gambar (bisa lebih dari satu)...</label>
                 </div>
                 <small class="text-muted">Format: JPG, PNG. Maks: 2MB.</small>
             </div>
@@ -41,8 +41,14 @@
 $data['custom_js'] = "
 <script>
     $('.custom-file-input').on('change', function() {
-        var fileName = $(this).val().split('\\\\').pop();
-        $(this).siblings('.custom-file-label').addClass('selected').html(fileName);
+        var files = $(this)[0].files;
+        var label = 'Pilih gambar (bisa lebih dari satu)...';
+        if (files.length == 1) {
+            label = files[0].name;
+        } else if (files.length > 1) {
+            label = files.length + ' file terpilih';
+        }
+        $(this).siblings('.custom-file-label').addClass('selected').html(label);
     });
 </script>
 ";

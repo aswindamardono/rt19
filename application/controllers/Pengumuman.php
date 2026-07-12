@@ -57,7 +57,8 @@ class Pengumuman extends MY_Controller {
             $btn = '<a href="'.base_url('pengumuman/detail/'.$row->id).'" class="btn btn-sm btn-info"><i class="fas fa-eye"></i> Detail</a> ';
             
             if (in_array($this->role_id, [1, 4])) { // Admin atau Sekretaris
-                $btn .= '<a href="'.base_url('pengumuman/edit/'.$row->id).'" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i> Edit</a>';
+                $btn .= '<a href="'.base_url('pengumuman/edit/'.$row->id).'" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i> Edit</a> ';
+                $btn .= '<a href="'.base_url('pengumuman/hapus/'.$row->id).'" class="btn btn-sm btn-danger" onclick="return confirm(\'Apakah Anda yakin ingin menghapus data ini?\')"><i class="fas fa-trash"></i> Hapus</a>';
             }
 
             $r[] = $btn;
@@ -88,7 +89,7 @@ class Pengumuman extends MY_Controller {
             ];
 
             // Handle image upload
-            if (!empty($_FILES['gambar']['name'])) {
+            if (!empty($_FILES['gambar']['name'][0])) {
                 $config['upload_path']          = './uploads/pengumuman/';
                 $config['allowed_types']        = 'jpg|jpeg|png';
                 $config['max_size']             = 10240; // 10MB
@@ -97,10 +98,25 @@ class Pengumuman extends MY_Controller {
                 if (!is_dir($config['upload_path'])) mkdir($config['upload_path'], 0777, TRUE);
 
                 $this->upload->initialize($config);
-
-                if ($this->upload->do_upload('gambar')) {
-                    $this->_auto_resize_image($this->upload->data('full_path'));
-                    $insert_data['gambar'] = $this->upload->data('file_name');
+                
+                $uploaded_files = array();
+                $filesCount = count($_FILES['gambar']['name']);
+                
+                for($i = 0; $i < $filesCount; $i++){
+                    $_FILES['file']['name']     = $_FILES['gambar']['name'][$i];
+                    $_FILES['file']['type']     = $_FILES['gambar']['type'][$i];
+                    $_FILES['file']['tmp_name'] = $_FILES['gambar']['tmp_name'][$i];
+                    $_FILES['file']['error']     = $_FILES['gambar']['error'][$i];
+                    $_FILES['file']['size']     = $_FILES['gambar']['size'][$i];
+                    
+                    if($this->upload->do_upload('file')){
+                        $this->_auto_resize_image($this->upload->data('full_path'));
+                        $uploaded_files[] = $this->upload->data('file_name');
+                    }
+                }
+                
+                if(!empty($uploaded_files)){
+                    $insert_data['gambar'] = json_encode($uploaded_files);
                 }
             }
 
@@ -134,7 +150,7 @@ class Pengumuman extends MY_Controller {
             ];
 
             // Handle image upload
-            if (!empty($_FILES['gambar']['name'])) {
+            if (!empty($_FILES['gambar']['name'][0])) {
                 $config['upload_path']          = './uploads/pengumuman/';
                 $config['allowed_types']        = 'jpg|jpeg|png';
                 $config['max_size']             = 10240; // 10MB
@@ -143,13 +159,40 @@ class Pengumuman extends MY_Controller {
                 if (!is_dir($config['upload_path'])) mkdir($config['upload_path'], 0777, TRUE);
 
                 $this->upload->initialize($config);
-
-                if ($this->upload->do_upload('gambar')) {
-                    $this->_auto_resize_image($this->upload->data('full_path'));
-                    if ($data['pengumuman']->gambar && file_exists('./uploads/pengumuman/' . $data['pengumuman']->gambar)) {
-                        unlink('./uploads/pengumuman/' . $data['pengumuman']->gambar);
+                
+                $uploaded_files = array();
+                $filesCount = count($_FILES['gambar']['name']);
+                
+                for($i = 0; $i < $filesCount; $i++){
+                    $_FILES['file']['name']     = $_FILES['gambar']['name'][$i];
+                    $_FILES['file']['type']     = $_FILES['gambar']['type'][$i];
+                    $_FILES['file']['tmp_name'] = $_FILES['gambar']['tmp_name'][$i];
+                    $_FILES['file']['error']     = $_FILES['gambar']['error'][$i];
+                    $_FILES['file']['size']     = $_FILES['gambar']['size'][$i];
+                    
+                    if($this->upload->do_upload('file')){
+                        $this->_auto_resize_image($this->upload->data('full_path'));
+                        $uploaded_files[] = $this->upload->data('file_name');
                     }
-                    $update_data['gambar'] = $this->upload->data('file_name');
+                }
+
+                if(!empty($uploaded_files)){
+                    // Hapus gambar lama
+                    if ($data['pengumuman']->gambar) {
+                        $old_files = json_decode($data['pengumuman']->gambar, true);
+                        if(is_array($old_files)) {
+                            foreach($old_files as $of) {
+                                if (file_exists('./uploads/pengumuman/' . $of)) {
+                                    unlink('./uploads/pengumuman/' . $of);
+                                }
+                            }
+                        } else {
+                            if (file_exists('./uploads/pengumuman/' . $data['pengumuman']->gambar)) {
+                                unlink('./uploads/pengumuman/' . $data['pengumuman']->gambar);
+                            }
+                        }
+                    }
+                    $update_data['gambar'] = json_encode($uploaded_files);
                 }
             }
 
@@ -169,5 +212,33 @@ class Pengumuman extends MY_Controller {
         if (!$data['pengumuman']) show_404();
         
         $this->render('pengumuman/detail', $data);
+    }
+
+    public function hapus($id) {
+        $this->check_role([1, 4]); // Admin, Sekretaris
+        
+        $pengumuman = $this->Pengumuman_model->get_by_id($id);
+        if (!$pengumuman) show_404();
+        
+        // Hapus gambar jika ada
+        if ($pengumuman->gambar) {
+            $old_files = json_decode($pengumuman->gambar, true);
+            if(is_array($old_files)) {
+                foreach($old_files as $of) {
+                    if (file_exists('./uploads/pengumuman/' . $of)) {
+                        unlink('./uploads/pengumuman/' . $of);
+                    }
+                }
+            } else {
+                if (file_exists('./uploads/pengumuman/' . $pengumuman->gambar)) {
+                    unlink('./uploads/pengumuman/' . $pengumuman->gambar);
+                }
+            }
+        }
+        
+        $this->Pengumuman_model->delete($id);
+        
+        $this->session->set_flashdata('success', 'Pengumuman berhasil dihapus.');
+        redirect('pengumuman');
     }
 }

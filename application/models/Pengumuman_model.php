@@ -68,4 +68,9 @@ class Pengumuman_model extends CI_Model {
         $this->db->where('id', $id);
         return $this->db->get('tb_pengumuman')->row();
     }
+
+    public function delete($id) {
+        $this->db->where('id', $id);
+        $this->db->delete('tb_pengumuman');
+    }
 }
