@@ -8,14 +8,31 @@
 <div class="pub-ann-grid">
   <?php if (!empty($pengumuman)): ?>
     <?php foreach ($pengumuman as $i => $p):
-      $img_path = !empty($p->gambar) ? FCPATH.'uploads/pengumuman/'.$p->gambar : null;
-      $has_img  = $img_path && is_file($img_path);
-      $foto_url = $has_img ? base_url('uploads/pengumuman/'.$p->gambar) : '';
+      $foto_arr = [];
+      $has_img = false;
+      if (!empty($p->gambar)) {
+          $decoded = json_decode($p->gambar, true);
+          if (is_array($decoded) && count($decoded) > 0) {
+              foreach ($decoded as $img) {
+                  if (is_file(FCPATH.'uploads/pengumuman/'.$img)) {
+                      $foto_arr[] = base_url('uploads/pengumuman/'.$img);
+                      $has_img = true;
+                  }
+              }
+          } else {
+              if (is_file(FCPATH.'uploads/pengumuman/'.$p->gambar)) {
+                  $foto_arr[] = base_url('uploads/pengumuman/'.$p->gambar);
+                  $has_img = true;
+              }
+          }
+      }
+      $foto_url = $has_img ? $foto_arr[0] : '';
+      
       $js_data = json_encode([
         'judul' => $p->judul,
         'tanggal' => date('d M Y', strtotime($p->tanggal_publish)),
         'isi' => $p->isi,
-        'foto' => $foto_url
+        'foto' => $foto_arr
       ], JSON_HEX_APOS|JSON_HEX_QUOT);
     ?>
       <article class="ann-card" data-aos="fade-up" data-aos-delay="<?= 100 + $i * 80 ?>" 
@@ -71,6 +88,28 @@
 </div>
 
 <script>
+var currentAnnSlide = 0;
+function showAnnSlide(n) {
+    var track = document.getElementById("annSliderTrack");
+    if (!track) return;
+    var slidesCount = track.children.length;
+    if (slidesCount === 0) return;
+    
+    if (n >= slidesCount) currentAnnSlide = 0;
+    if (n < 0) currentAnnSlide = slidesCount - 1;
+    
+    var offset = -(currentAnnSlide * 100);
+    track.style.transform = "translateX(" + offset + "%)";
+}
+function nextAnnSlide() {
+    currentAnnSlide++;
+    showAnnSlide(currentAnnSlide);
+}
+function prevAnnSlide() {
+    currentAnnSlide--;
+    showAnnSlide(currentAnnSlide);
+}
+
 function openAnnModal(p) {
   var modal = document.getElementById('annModal');
   var photo = document.getElementById('annModalPhoto');
@@ -78,12 +117,28 @@ function openAnnModal(p) {
   var date = document.getElementById('annModalDate');
   var content = document.getElementById('annModalContent');
 
-  if (p.foto) {
-    photo.innerHTML = '<img src="' + p.foto + '" style="width:100%; height:auto; object-fit:contain; max-height:300px;" alt="Foto Pengumuman">';
-    photo.style.display = 'flex';
+  if (p.foto && p.foto.length > 0) {
+      if (p.foto.length === 1) {
+          photo.innerHTML = '<img src="' + p.foto[0] + '" style="width:100%; height:auto; object-fit:contain; max-height:300px;" alt="Foto Pengumuman">';
+      } else {
+          var html = '<div style="position:relative; width:100%; background-color:#f8f9fa; overflow:hidden; display:flex; align-items:center; min-height:200px;">';
+          html += '<div id="annSliderTrack" style="display:flex; width:100%; transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); transform: translateX(0%);">';
+          p.foto.forEach(function(f, idx) {
+              html += '<div style="flex: 0 0 100%; min-width: 100%; text-align: center;">';
+              html += '<img src="' + f + '" style="max-width:100%; max-height:300px; object-fit:contain; vertical-align:middle;" alt="Foto Pengumuman">';
+              html += '</div>';
+          });
+          html += '</div>';
+          html += '<button onclick="prevAnnSlide()" style="position:absolute; top:50%; left:10px; transform:translateY(-50%); background:rgba(0,0,0,0.5); color:white; border:none; width:36px; height:36px; border-radius:50%; cursor:pointer; font-size:16px; display:flex; align-items:center; justify-content:center; z-index:10; transition:background 0.2s;">&#10094;</button>';
+          html += '<button onclick="nextAnnSlide()" style="position:absolute; top:50%; right:10px; transform:translateY(-50%); background:rgba(0,0,0,0.5); color:white; border:none; width:36px; height:36px; border-radius:50%; cursor:pointer; font-size:16px; display:flex; align-items:center; justify-content:center; z-index:10; transition:background 0.2s;">&#10095;</button>';
+          html += '</div>';
+          photo.innerHTML = html;
+          currentAnnSlide = 0;
+      }
+      photo.style.display = 'block';
   } else {
-    photo.innerHTML = '';
-    photo.style.display = 'none';
+      photo.innerHTML = '';
+      photo.style.display = 'none';
   }
 
   title.textContent = p.judul || '-';
