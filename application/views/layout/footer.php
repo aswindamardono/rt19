@@ -22,28 +22,44 @@ $mobile_menus = [];
 // Dashboard always first
 $mobile_menus[] = ['url' => 'dashboard', 'icon' => 'fa-th-large', 'label' => 'Home', 'seg' => 'dashboard'];
 
-if (in_array($role_id, [1, 4, 6])) {
-  $mobile_menus[] = ['url' => 'warga', 'icon' => 'fa-users', 'label' => 'Warga', 'seg' => 'warga'];
-  $mobile_menus[] = ['url' => 'inventaris', 'icon' => 'fa-boxes', 'label' => 'Inventaris', 'seg' => 'inventaris'];
-}
-
-if (in_array($role_id, [1, 3, 6])) {
+if ($role_id == 3) {
+  // KHUSUS BENDAHARA
+  // Urutan 1 & 2 akan di kiri: Home, Pemasukan
   $mobile_menus[] = ['url' => 'keuangan/pemasukan', 'icon' => 'fa-arrow-down', 'label' => 'Pemasukan', 'seg' => 'keuangan'];
+  
+  // Tengah (Popup)
+  $mobile_menus[] = ['url' => 'surat', 'icon' => 'fa-envelope', 'label' => 'Surat', 'seg' => 'surat'];
+  $mobile_menus[] = ['url' => 'pengumuman', 'icon' => 'fa-bullhorn', 'label' => 'Pengumuman', 'seg' => 'pengumuman'];
+  $mobile_menus[] = ['url' => 'iuran', 'icon' => 'fa-hand-holding-usd', 'label' => 'Iuran', 'seg' => 'iuran'];
+  
+  // Urutan terakhir akan di kanan: Pengeluaran, Laporan
   $mobile_menus[] = ['url' => 'keuangan/pengeluaran', 'icon' => 'fa-arrow-up', 'label' => 'Pengeluaran', 'seg' => 'keuangan'];
   $mobile_menus[] = ['url' => 'keuangan/laporan', 'icon' => 'fa-file-invoice-dollar', 'label' => 'Laporan', 'seg' => 'keuangan'];
-  $mobile_menus[] = ['url' => 'iuran', 'icon' => 'fa-hand-holding-usd', 'label' => 'Iuran', 'seg' => 'iuran'];
-}
+} else {
+  // UNTUK ROLE LAINNYO
+  if (in_array($role_id, [1, 4, 6])) {
+    $mobile_menus[] = ['url' => 'warga', 'icon' => 'fa-users', 'label' => 'Warga', 'seg' => 'warga'];
+    $mobile_menus[] = ['url' => 'inventaris', 'icon' => 'fa-boxes', 'label' => 'Inventaris', 'seg' => 'inventaris'];
+  }
 
-$mobile_menus[] = ['url' => 'surat', 'icon' => 'fa-envelope', 'label' => 'Surat', 'seg' => 'surat'];
-$mobile_menus[] = ['url' => 'pengumuman', 'icon' => 'fa-bullhorn', 'label' => 'Pengumuman', 'seg' => 'pengumuman'];
+  if (in_array($role_id, [1, 6])) {
+    $mobile_menus[] = ['url' => 'keuangan/pemasukan', 'icon' => 'fa-arrow-down', 'label' => 'Pemasukan', 'seg' => 'keuangan'];
+    $mobile_menus[] = ['url' => 'keuangan/pengeluaran', 'icon' => 'fa-arrow-up', 'label' => 'Pengeluaran', 'seg' => 'keuangan'];
+    $mobile_menus[] = ['url' => 'keuangan/laporan', 'icon' => 'fa-file-invoice-dollar', 'label' => 'Laporan', 'seg' => 'keuangan'];
+    $mobile_menus[] = ['url' => 'iuran', 'icon' => 'fa-hand-holding-usd', 'label' => 'Iuran', 'seg' => 'iuran'];
+  }
 
-if (in_array($role_id, [1, 4, 6])) {
-  $mobile_menus[] = ['url' => 'struktur', 'icon' => 'fa-sitemap', 'label' => 'Struktur', 'seg' => 'struktur'];
-}
+  $mobile_menus[] = ['url' => 'surat', 'icon' => 'fa-envelope', 'label' => 'Surat', 'seg' => 'surat'];
+  $mobile_menus[] = ['url' => 'pengumuman', 'icon' => 'fa-bullhorn', 'label' => 'Pengumuman', 'seg' => 'pengumuman'];
 
-if (in_array($role_id, [1])) {
-  $mobile_menus[] = ['url' => 'users', 'icon' => 'fa-users-cog', 'label' => 'User', 'seg' => 'users'];
-  $mobile_menus[] = ['url' => 'pengaturan', 'icon' => 'fa-cogs', 'label' => 'Pengaturan', 'seg' => 'pengaturan'];
+  if (in_array($role_id, [1, 4, 6])) {
+    $mobile_menus[] = ['url' => 'struktur', 'icon' => 'fa-sitemap', 'label' => 'Struktur', 'seg' => 'struktur'];
+  }
+
+  if (in_array($role_id, [1])) {
+    $mobile_menus[] = ['url' => 'users', 'icon' => 'fa-users-cog', 'label' => 'User', 'seg' => 'users'];
+    $mobile_menus[] = ['url' => 'pengaturan', 'icon' => 'fa-cogs', 'label' => 'Pengaturan', 'seg' => 'pengaturan'];
+  }
 }
 
 // Bottom bar: show first 2 on left, last 2 on right, rest in FAB popup
