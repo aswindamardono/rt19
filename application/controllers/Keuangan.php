@@ -1,9 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Keuangan extends MY_Controller {
+class Keuangan extends MY_Controller
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->check_role([1, 3, 6]); // Super Admin, Bendahara, Pengurus
         $this->load->model('Keuangan_model');
@@ -12,23 +14,25 @@ class Keuangan extends MY_Controller {
     // ============================================
     // PEMASUKAN
     // ============================================
-    public function pemasukan() {
+    public function pemasukan()
+    {
         $data['title'] = 'Data Pemasukan Kas';
-        
+
         $data['custom_js'] = "
         <script>
             var table;
             $(document).ready(function() {
                 $('#modalTambah').appendTo('body');
+                $('#modalEdit').appendTo('body');
                 table = $('#table-pemasukan').DataTable({
                     'processing': true,
                     'serverSide': true,
                     'order': [],
                     'ajax': {
-                        'url': '".base_url('keuangan/pemasukan_datatable')."',
+                        'url': '" . base_url('keuangan/pemasukan_datatable') . "',
                         'type': 'POST',
                         'data': function(d) {
-                            d.".$this->security->get_csrf_token_name()." = '".$this->security->get_csrf_hash()."';
+                            d." . $this->security->get_csrf_token_name() . " = '" . $this->security->get_csrf_hash() . "';
                         }
                     },
                     'columnDefs': [
@@ -36,6 +40,22 @@ class Keuangan extends MY_Controller {
                     ]
                 });
             });
+
+            function edit_pemasukan(id) {
+                $.ajax({
+                    url: '" . base_url('keuangan/get_pemasukan/') . "' + id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        $('#edit_id').val(data.id);
+                        $('#edit_tanggal').val(data.tanggal);
+                        $('#edit_kategori').val(data.kategori);
+                        $('#edit_nominal').val(data.nominal);
+                        $('#edit_keterangan').val(data.keterangan);
+                        $('#modalEdit').modal('show');
+                    }
+                });
+            }
 
             function hapus_pemasukan(id) {
                 Swal.fire({
@@ -47,17 +67,18 @@ class Keuangan extends MY_Controller {
                     confirmButtonText: 'Ya, Hapus!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = '".base_url('keuangan/hapus_pemasukan/')."' + id;
+                        window.location.href = '" . base_url('keuangan/hapus_pemasukan/') . "' + id;
                     }
                 })
             }
         </script>
         ";
-        
+
         $this->render('keuangan/pemasukan', $data);
     }
 
-    public function pemasukan_datatable() {
+    public function pemasukan_datatable()
+    {
         $list = $this->Keuangan_model->get_pemasukan_datatables();
         $data = array();
         $no = $_POST['start'];
@@ -69,10 +90,11 @@ class Keuangan extends MY_Controller {
             $r[] = $row->kategori;
             $r[] = $row->keterangan;
             $r[] = 'Rp ' . number_format($row->nominal, 0, ',', '.');
-            
+
             $btn = '';
             if (in_array($this->role_id, [1, 3])) {
-                $btn = '<button type="button" onclick="hapus_pemasukan('.$row->id.')" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>';
+                $btn = '<button type="button" onclick="edit_pemasukan(' . $row->id . ')" class="btn btn-sm btn-warning mr-1"><i class="fas fa-edit"></i></button>';
+                $btn .= '<button type="button" onclick="hapus_pemasukan(' . $row->id . ')" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>';
             }
             $r[] = $btn;
 
@@ -88,7 +110,8 @@ class Keuangan extends MY_Controller {
         echo json_encode($output);
     }
 
-    public function tambah_pemasukan() {
+    public function tambah_pemasukan()
+    {
         $this->check_role([1, 3]);
         $data = [
             'tanggal' => $this->input->post('tanggal', TRUE),
@@ -103,10 +126,35 @@ class Keuangan extends MY_Controller {
         redirect('keuangan/pemasukan');
     }
 
-    public function hapus_pemasukan($id) {
+    public function hapus_pemasukan($id)
+    {
         $this->check_role([1, 3]);
         $this->Keuangan_model->delete_pemasukan($id);
         $this->session->set_flashdata('success', 'Pemasukan berhasil dihapus.');
+        redirect('keuangan/pemasukan');
+    }
+
+    public function get_pemasukan($id)
+    {
+        $this->check_role([1, 3]);
+        $data = $this->Keuangan_model->get_pemasukan_by_id($id);
+        $data->nominal = intval($data->nominal);
+        echo json_encode($data);
+    }
+
+    public function edit_pemasukan()
+    {
+        $this->check_role([1, 3]);
+        $id = $this->input->post('id', TRUE);
+        $data = [
+            'tanggal' => $this->input->post('tanggal', TRUE),
+            'kategori' => $this->input->post('kategori', TRUE),
+            'keterangan' => $this->input->post('keterangan', TRUE),
+            'nominal' => str_replace(['Rp', '.', ' '], '', $this->input->post('nominal', TRUE)),
+        ];
+
+        $this->Keuangan_model->update_pemasukan($id, $data);
+        $this->session->set_flashdata('success', 'Pemasukan berhasil diperbarui.');
         redirect('keuangan/pemasukan');
     }
 
@@ -114,23 +162,25 @@ class Keuangan extends MY_Controller {
     // ============================================
     // PENGELUARAN
     // ============================================
-    public function pengeluaran() {
+    public function pengeluaran()
+    {
         $data['title'] = 'Data Pengeluaran Kas';
-        
+
         $data['custom_js'] = "
         <script>
             var table;
             $(document).ready(function() {
                 $('#modalTambah').appendTo('body');
+                $('#modalEdit').appendTo('body');
                 table = $('#table-pengeluaran').DataTable({
                     'processing': true,
                     'serverSide': true,
                     'order': [],
                     'ajax': {
-                        'url': '".base_url('keuangan/pengeluaran_datatable')."',
+                        'url': '" . base_url('keuangan/pengeluaran_datatable') . "',
                         'type': 'POST',
                         'data': function(d) {
-                            d.".$this->security->get_csrf_token_name()." = '".$this->security->get_csrf_hash()."';
+                            d." . $this->security->get_csrf_token_name() . " = '" . $this->security->get_csrf_hash() . "';
                         }
                     },
                     'columnDefs': [
@@ -138,6 +188,22 @@ class Keuangan extends MY_Controller {
                     ]
                 });
             });
+
+            function edit_pengeluaran(id) {
+                $.ajax({
+                    url: '" . base_url('keuangan/get_pengeluaran/') . "' + id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        $('#edit_id').val(data.id);
+                        $('#edit_tanggal').val(data.tanggal);
+                        $('#edit_kategori').val(data.kategori);
+                        $('#edit_nominal').val(data.nominal);
+                        $('#edit_keterangan').val(data.keterangan);
+                        $('#modalEdit').modal('show');
+                    }
+                });
+            }
 
             function hapus_pengeluaran(id) {
                 Swal.fire({
@@ -149,17 +215,18 @@ class Keuangan extends MY_Controller {
                     confirmButtonText: 'Ya, Hapus!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = '".base_url('keuangan/hapus_pengeluaran/')."' + id;
+                        window.location.href = '" . base_url('keuangan/hapus_pengeluaran/') . "' + id;
                     }
                 })
             }
         </script>
         ";
-        
+
         $this->render('keuangan/pengeluaran', $data);
     }
 
-    public function pengeluaran_datatable() {
+    public function pengeluaran_datatable()
+    {
         $list = $this->Keuangan_model->get_pengeluaran_datatables();
         $data = array();
         $no = $_POST['start'];
@@ -171,10 +238,11 @@ class Keuangan extends MY_Controller {
             $r[] = $row->kategori;
             $r[] = $row->keterangan;
             $r[] = 'Rp ' . number_format($row->nominal, 0, ',', '.');
-            
+
             $btn = '';
             if (in_array($this->role_id, [1, 3])) {
-                $btn = '<button type="button" onclick="hapus_pengeluaran('.$row->id.')" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>';
+                $btn = '<button type="button" onclick="edit_pengeluaran(' . $row->id . ')" class="btn btn-sm btn-warning mr-1"><i class="fas fa-edit"></i></button>';
+                $btn .= '<button type="button" onclick="hapus_pengeluaran(' . $row->id . ')" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>';
             }
             $r[] = $btn;
 
@@ -190,7 +258,8 @@ class Keuangan extends MY_Controller {
         echo json_encode($output);
     }
 
-    public function tambah_pengeluaran() {
+    public function tambah_pengeluaran()
+    {
         $this->check_role([1, 3]);
         $data = [
             'tanggal' => $this->input->post('tanggal', TRUE),
@@ -205,19 +274,45 @@ class Keuangan extends MY_Controller {
         redirect('keuangan/pengeluaran');
     }
 
-    public function hapus_pengeluaran($id) {
+    public function hapus_pengeluaran($id)
+    {
         $this->check_role([1, 3]);
         $this->Keuangan_model->delete_pengeluaran($id);
         $this->session->set_flashdata('success', 'Pengeluaran berhasil dihapus.');
         redirect('keuangan/pengeluaran');
     }
 
+    public function get_pengeluaran($id)
+    {
+        $this->check_role([1, 3]);
+        $data = $this->Keuangan_model->get_pengeluaran_by_id($id);
+        $data->nominal = intval($data->nominal);
+        echo json_encode($data);
+    }
+
+    public function edit_pengeluaran()
+    {
+        $this->check_role([1, 3]);
+        $id = $this->input->post('id', TRUE);
+        $data = [
+            'tanggal' => $this->input->post('tanggal', TRUE),
+            'kategori' => $this->input->post('kategori', TRUE),
+            'keterangan' => $this->input->post('keterangan', TRUE),
+            'nominal' => str_replace(['Rp', '.', ' '], '', $this->input->post('nominal', TRUE)),
+        ];
+
+        $this->Keuangan_model->update_pengeluaran($id, $data);
+        $this->session->set_flashdata('success', 'Pengeluaran berhasil diperbarui.');
+        redirect('keuangan/pengeluaran');
+    }
+
     // ============================================
     // LAPORAN
     // ============================================
-    public function laporan() {
+    public function laporan()
+    {
         $data['title'] = 'Laporan Keuangan';
-        
+
         $start_date = $this->input->get('start_date') ?: date('Y-m-01');
         $end_date = $this->input->get('end_date') ?: date('Y-m-t');
 

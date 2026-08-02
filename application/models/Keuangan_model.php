@@ -51,6 +51,15 @@ class Keuangan_model extends CI_Model {
         return $this->db->insert_id();
     }
 
+    public function get_pemasukan_by_id($id) {
+        return $this->db->get_where('tb_pemasukan', ['id' => $id])->row();
+    }
+
+    public function update_pemasukan($id, $data) {
+        $this->db->where('id', $id);
+        $this->db->update('tb_pemasukan', $data);
+    }
+
     public function delete_pemasukan($id) {
         $this->db->where('id', $id);
         $this->db->delete('tb_pemasukan');
@@ -102,6 +111,15 @@ class Keuangan_model extends CI_Model {
     public function insert_pengeluaran($data) {
         $this->db->insert('tb_pengeluaran', $data);
         return $this->db->insert_id();
+    }
+
+    public function get_pengeluaran_by_id($id) {
+        return $this->db->get_where('tb_pengeluaran', ['id' => $id])->row();
+    }
+
+    public function update_pengeluaran($id, $data) {
+        $this->db->where('id', $id);
+        $this->db->update('tb_pengeluaran', $data);
     }
 
     public function delete_pengeluaran($id) {
