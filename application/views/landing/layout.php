@@ -1219,7 +1219,7 @@ $active = isset($active_menu) ? $active_menu : 'keuangan';
       </li>
       <li>
         <a href="<?= base_url('info/inventaris') ?>" class="<?= $active === 'inventaris' ? 'active' : '' ?>">
-          <i class="fas fa-boxes"></i> Inventaris
+          <i class="fas fa-boxes"></i> Inventaris Barang
         </a>
       </li>
       <li>
@@ -1256,7 +1256,7 @@ $active = isset($active_menu) ? $active_menu : 'keuangan';
       <i class="fas fa-bullhorn"></i><span>Pengumuman</span>
     </a>
     <a href="<?= base_url('info/inventaris') ?>" class="<?= $active === 'inventaris' ? 'active' : '' ?>">
-      <i class="fas fa-boxes"></i><span>Inventaris</span>
+      <i class="fas fa-boxes"></i><span>Inventaris Barang</span>
     </a>
   </nav>
 
