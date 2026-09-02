@@ -1176,7 +1176,7 @@
 
       <div class="public-stat" data-aos="fade-up" data-aos-delay="200">
         <div class="public-stat-icon income"><i class="fas fa-arrow-down"></i></div>
-        <div class="public-stat-label">Pemasukan Bulan Ini</div>
+        <div class="public-stat-label">Pemasukan Bulan Kemarin</div>
         <div class="public-stat-value income">
           Rp <?= number_format((float) $pemasukan_bln, 0, ',', '.') ?>
         </div>
@@ -1185,7 +1185,7 @@
 
       <div class="public-stat" data-aos="fade-up" data-aos-delay="300">
         <div class="public-stat-icon expense"><i class="fas fa-arrow-up"></i></div>
-        <div class="public-stat-label">Pengeluaran Bulan Ini</div>
+        <div class="public-stat-label">Pengeluaran Bulan Kemarin</div>
         <div class="public-stat-value expense">
           Rp <?= number_format((float) $pengeluaran_bln, 0, ',', '.') ?>
         </div>
