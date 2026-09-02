@@ -23,7 +23,7 @@ class Keuangan_model extends CI_Model {
             $i++;
         }
 
-        $column_order = array(null, 'tanggal', 'kategori', 'keterangan', 'nominal', null);
+        $column_order = array(null, 'tanggal', 'nominal', 'kategori', 'keterangan', null);
         if (isset($_POST['order'])) {
             $this->db->order_by($column_order[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
         } else {
@@ -85,7 +85,7 @@ class Keuangan_model extends CI_Model {
             $i++;
         }
 
-        $column_order = array(null, 'tanggal', 'kategori', 'keterangan', 'nominal', null);
+        $column_order = array(null, 'tanggal', 'nominal', 'kategori', 'keterangan', null);
         if (isset($_POST['order'])) {
             $this->db->order_by($column_order[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
         } else {

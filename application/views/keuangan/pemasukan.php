@@ -13,9 +13,9 @@
                 <tr>
                     <th>No</th>
                     <th>Tanggal</th>
+                    <th>Nominal</th>
                     <th>Kategori</th>
                     <th>Keterangan</th>
-                    <th>Nominal</th>
                     <th>Aksi</th>
                 </tr>
             </thead>

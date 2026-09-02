@@ -87,9 +87,9 @@ class Keuangan extends MY_Controller
             $r = array();
             $r[] = $no;
             $r[] = date('d-m-Y', strtotime($row->tanggal));
+            $r[] = 'Rp ' . number_format($row->nominal, 0, ',', '.');
             $r[] = $row->kategori;
             $r[] = $row->keterangan;
-            $r[] = 'Rp ' . number_format($row->nominal, 0, ',', '.');
 
             $btn = '';
             if (in_array($this->role_id, [1, 3])) {
@@ -235,9 +235,9 @@ class Keuangan extends MY_Controller
             $r = array();
             $r[] = $no;
             $r[] = date('d-m-Y', strtotime($row->tanggal));
+            $r[] = 'Rp ' . number_format($row->nominal, 0, ',', '.');
             $r[] = $row->kategori;
             $r[] = $row->keterangan;
-            $r[] = 'Rp ' . number_format($row->nominal, 0, ',', '.');
 
             $btn = '';
             if (in_array($this->role_id, [1, 3])) {
