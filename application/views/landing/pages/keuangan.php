@@ -3,7 +3,7 @@
     <span class="hero-pill">
       <i class="fas fa-leaf"></i> Orchid Regency Sidoarjo
     </span>
-    <h1>Transparansi &amp; Kemudahan AAAAABBBBb<br>Untuk Warga Orchid Regency RT-19</h1>
+    <h1>Transparansi &amp; Kemudahan<br>Untuk Warga Orchid Regency RT-19</h1>
     <p>
       Sistem informasi, administrasi, dan transparansi keuangan
       lingkungan RT-19 Orchid Regency Sidoarjo &mdash; agar setiap warga

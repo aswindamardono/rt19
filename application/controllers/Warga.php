@@ -63,11 +63,11 @@ class Warga extends MY_Controller {
             $no++;
             $row = array();
             $row[] = $no;
+            $row[] = $warga->rt;
+            $row[] = $warga->nama_lengkap;
             $row[] = $warga->nik;
             $row[] = $warga->no_kk;
-            $row[] = $warga->nama_lengkap;
             $row[] = $warga->jenis_kelamin;
-            $row[] = $warga->rt;
             // Status Warga
             if ($warga->alamat == 'Warga Tetap') {
                 $row[] = '<span class="badge badge-primary">Warga Tetap</span>';

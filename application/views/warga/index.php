@@ -13,11 +13,11 @@
             <thead>
                 <tr>
                     <th>No</th>
+                    <th>Blok Rumah</th>
+                    <th>Nama Lengkap</th>
                     <th>NIK</th>
                     <th>No KK</th>
-                    <th>Nama Lengkap</th>
                     <th>L/P</th>
-                    <th>Blok Rumah</th>
                     <th>Status Warga</th>
                     <th>Status KTP</th>
                     <th>Aksi</th>

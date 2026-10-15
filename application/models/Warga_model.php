@@ -5,8 +5,8 @@ class Warga_model extends CI_Model {
 
     // DataTables Config
     var $table = 'tb_warga';
-    var $column_order = array(null, 'nik', 'no_kk', 'nama_lengkap', 'jenis_kelamin', 'rt', 'no_hp', 'status_aktif', null);
-    var $column_search = array('nik', 'no_kk', 'nama_lengkap', 'alamat');
+    var $column_order = array(null, 'rt', 'nama_lengkap', 'nik', 'no_kk', 'jenis_kelamin', 'alamat', 'tempat_lahir', null);
+    var $column_search = array('rt', 'nama_lengkap', 'nik', 'no_kk', 'alamat');
     var $order = array('id' => 'desc');
 
     private function _get_datatables_query() {
